@@ -284,8 +284,14 @@ section {
 }
 
 .leaderboard-table tr.rank-1 td { color: var(--neon-yellow); }
+.leaderboard-table tr.rank-1 td.fit-yes { color: var(--neon-green); }
+.leaderboard-table tr.rank-1 td.fit-no { color: var(--neon-pink); }
 .leaderboard-table tr.rank-2 td { color: var(--chrome-light); }
+.leaderboard-table tr.rank-2 td.fit-yes { color: var(--neon-green); }
+.leaderboard-table tr.rank-2 td.fit-no { color: var(--neon-pink); }
 .leaderboard-table tr.rank-3 td { color: #cd7f32; }
+.leaderboard-table tr.rank-3 td.fit-yes { color: var(--neon-green); }
+.leaderboard-table tr.rank-3 td.fit-no { color: var(--neon-pink); }
 
 .rank-badge {
   display: inline-flex;
@@ -473,7 +479,7 @@ section {
 
 .setup-model .model-specs {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--chrome-mid);
   line-height: 2;
 }
@@ -500,7 +506,7 @@ section {
 
 .offload-list li {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.9rem;
+  font-size: 1.05rem;
   padding: 0.5rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
@@ -649,14 +655,14 @@ details.deep-dive[open] summary {
 details.deep-dive .deep-content {
   padding: 1.5rem;
   font-family: 'Rajdhani', sans-serif;
-  font-size: 0.95rem;
+  font-size: 1.1rem;
   line-height: 1.8;
   color: var(--chrome-light);
 }
 
 details.deep-dive .deep-content h4 {
   font-family: 'Orbitron', monospace;
-  font-size: 0.7rem;
+  font-size: 0.85rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--neon-cyan);
@@ -681,7 +687,7 @@ details.deep-dive .deep-content pre {
   padding: 1rem;
   overflow-x: auto;
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   line-height: 1.6;
   color: var(--chrome-light);
   margin: 0.8rem 0;
@@ -691,7 +697,7 @@ details.deep-dive .deep-content table {
   width: 100%;
   border-collapse: collapse;
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   margin: 0.8rem 0;
 }
 
@@ -700,7 +706,7 @@ details.deep-dive .deep-content th {
   color: var(--neon-cyan);
   padding: 0.4rem 0.6rem;
   border-bottom: 1px solid rgba(0, 240, 255, 0.2);
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -853,6 +859,15 @@ details.deep-dive .deep-content td {
   <h1 class="chrome-text">LOCAL INFERENCE<br>MACHINE</h1>
   <p class="tagline">Why pay for tokens when you can own the factory?</p>
 
+  <p style="max-width: 640px; text-align: center; color: var(--chrome-light); font-size: 1.2rem; line-height: 1.7; margin-bottom: 2.5rem; animation: fadeInUp 1s ease-out 0.3s both;">
+    Burning through your AI subscription every month and still hitting rate limits?
+    Curious about running models on your own hardware but unsure if the quality holds up,
+    what it actually costs, or whether it's worth the investment?
+    <br><br>
+    <span style="color: var(--neon-cyan);">We tested 12 models across 30 real tasks on three hardware tiers
+    &mdash; from a Raspberry Pi to a Mac Studio &mdash; so you don't have to guess.</span>
+  </p>
+
   <div class="hero-stats">
     <div class="hero-stat">
       <div class="value">12</div>
@@ -899,29 +914,32 @@ details.deep-dive .deep-content td {
             <th>Model</th>
             <th>Score</th>
             <th>Quality</th>
-            <th>128 GB?</th>
+            <th>128 GB</th>
+            <th>256 GB</th>
             <th>Active Params</th>
             <th>Avg Time</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="rank-1"><td><span class="rank-badge">1</span></td><td>GPT-oss-120B</td><td>1.89</td><td><div class="score-bar"><div class="score-bar-fill" style="width:94.5%;background:linear-gradient(90deg,var(--neon-yellow),var(--neon-cyan))"></div></div></td><td class="fit-yes">80 GB</td><td>5.1B MoE</td><td>102s</td></tr>
-          <tr class="rank-2"><td><span class="rank-badge">2</span></td><td>Qwen3-235B-MoE</td><td>1.68</td><td><div class="score-bar"><div class="score-bar-fill" style="width:84%;background:linear-gradient(90deg,var(--chrome-light),var(--chrome-mid))"></div></div></td><td class="fit-no">256 GB</td><td>22B MoE</td><td>159s</td></tr>
-          <tr class="rank-2"><td><span class="rank-badge">3</span></td><td>MiniMax-M2.5</td><td>1.68</td><td><div class="score-bar"><div class="score-bar-fill" style="width:84%;background:linear-gradient(90deg,var(--chrome-light),var(--chrome-mid))"></div></div></td><td class="fit-no">256 GB</td><td>15B MoE</td><td>62s</td></tr>
-          <tr><td><span class="rank-badge">4</span></td><td>GLM-4.7-Flash</td><td>1.64</td><td><div class="score-bar"><div class="score-bar-fill" style="width:82%;background:var(--neon-green)"></div></div></td><td class="fit-yes">4 GB</td><td>~3B MoE</td><td>65s</td></tr>
-          <tr><td><span class="rank-badge">5</span></td><td>Qwen3-Coder-Next</td><td>1.62</td><td><div class="score-bar"><div class="score-bar-fill" style="width:81%;background:var(--neon-green)"></div></div></td><td class="fit-yes">46 GB</td><td>3B MoE</td><td>19s</td></tr>
-          <tr><td><span class="rank-badge">5</span></td><td>Qwen3-32B</td><td>1.62</td><td><div class="score-bar"><div class="score-bar-fill" style="width:81%;background:var(--neon-green)"></div></div></td><td class="fit-yes">18 GB</td><td>32B dense</td><td>443s</td></tr>
-          <tr><td><span class="rank-badge">5</span></td><td>Devstral-2</td><td>1.62</td><td><div class="score-bar"><div class="score-bar-fill" style="width:81%;background:var(--neon-green)"></div></div></td><td class="fit-yes">70 GB</td><td>123B dense</td><td>14s</td></tr>
-          <tr><td><span class="rank-badge">8</span></td><td>Qwen3-14B</td><td>1.51</td><td><div class="score-bar"><div class="score-bar-fill" style="width:75.5%;background:rgba(255,255,255,0.4)"></div></div></td><td class="fit-yes">10 GB</td><td>14B dense</td><td>84s</td></tr>
-          <tr><td><span class="rank-badge">9</span></td><td>Nemotron-3-Super</td><td>1.51</td><td><div class="score-bar"><div class="score-bar-fill" style="width:75.5%;background:rgba(255,255,255,0.4)"></div></div></td><td class="fit-yes">65 GB</td><td>12B hybrid</td><td>7.5s</td></tr>
-          <tr><td><span class="rank-badge">10</span></td><td>DS-R1-32B</td><td>1.35</td><td><div class="score-bar"><div class="score-bar-fill" style="width:67.5%;background:rgba(255,255,255,0.25)"></div></div></td><td class="fit-yes">18 GB</td><td>32B dense</td><td>82s</td></tr>
-          <tr><td><span class="rank-badge">11</span></td><td>Llama 3.3-70B</td><td>1.33</td><td><div class="score-bar"><div class="score-bar-fill" style="width:66.5%;background:rgba(255,255,255,0.25)"></div></div></td><td class="fit-yes" style="color:var(--neon-yellow)">Tight</td><td>70B dense</td><td>66s</td></tr>
-          <tr><td><span class="rank-badge">12</span></td><td>Qwen2.5-Coder-32B</td><td>0.33</td><td><div class="score-bar"><div class="score-bar-fill" style="width:16.5%;background:var(--neon-pink)"></div></div></td><td class="fit-yes">18 GB</td><td>32B dense</td><td>5.4s</td></tr>
+          <tr class="rank-1"><td><span class="rank-badge">1</span></td><td>GPT-oss-120B</td><td>1.89</td><td><div class="score-bar"><div class="score-bar-fill" style="width:94.5%;background:linear-gradient(90deg,var(--neon-yellow),var(--neon-cyan))"></div></div></td><td class="fit-yes">Yes*</td><td class="fit-yes">Yes</td><td>5.1B MoE</td><td>102s</td></tr>
+          <tr class="rank-2"><td><span class="rank-badge">2</span></td><td>Qwen3-235B-MoE</td><td>1.68</td><td><div class="score-bar"><div class="score-bar-fill" style="width:84%;background:linear-gradient(90deg,var(--chrome-light),var(--chrome-mid))"></div></div></td><td class="fit-no">No</td><td class="fit-yes">Yes</td><td>22B MoE</td><td>159s</td></tr>
+          <tr class="rank-2"><td><span class="rank-badge">3</span></td><td>MiniMax-M2.5</td><td>1.68</td><td><div class="score-bar"><div class="score-bar-fill" style="width:84%;background:linear-gradient(90deg,var(--chrome-light),var(--chrome-mid))"></div></div></td><td class="fit-no">No</td><td class="fit-yes">Yes</td><td>15B MoE</td><td>62s</td></tr>
+          <tr><td><span class="rank-badge">4</span></td><td>GLM-4.7-Flash</td><td>1.64</td><td><div class="score-bar"><div class="score-bar-fill" style="width:82%;background:var(--neon-green)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>~3B MoE</td><td>65s</td></tr>
+          <tr><td><span class="rank-badge">5</span></td><td>Qwen3-Coder-Next</td><td>1.62</td><td><div class="score-bar"><div class="score-bar-fill" style="width:81%;background:var(--neon-green)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>3B MoE</td><td>19s</td></tr>
+          <tr><td><span class="rank-badge">5</span></td><td>Qwen3-32B</td><td>1.62</td><td><div class="score-bar"><div class="score-bar-fill" style="width:81%;background:var(--neon-green)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>32B dense</td><td>443s</td></tr>
+          <tr><td><span class="rank-badge">5</span></td><td>Devstral-2</td><td>1.62</td><td><div class="score-bar"><div class="score-bar-fill" style="width:81%;background:var(--neon-green)"></div></div></td><td class="fit-yes">Yes*</td><td class="fit-yes">Yes</td><td>123B dense</td><td>14s</td></tr>
+          <tr><td><span class="rank-badge">8</span></td><td>Qwen3-14B</td><td>1.51</td><td><div class="score-bar"><div class="score-bar-fill" style="width:75.5%;background:rgba(255,255,255,0.4)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>14B dense</td><td>84s</td></tr>
+          <tr><td><span class="rank-badge">9</span></td><td>Nemotron-3-Super</td><td>1.51</td><td><div class="score-bar"><div class="score-bar-fill" style="width:75.5%;background:rgba(255,255,255,0.4)"></div></div></td><td class="fit-yes">Yes*</td><td class="fit-yes">Yes</td><td>12B hybrid</td><td>7.5s</td></tr>
+          <tr><td><span class="rank-badge">10</span></td><td>DS-R1-32B</td><td>1.35</td><td><div class="score-bar"><div class="score-bar-fill" style="width:67.5%;background:rgba(255,255,255,0.25)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>32B dense</td><td>82s</td></tr>
+          <tr><td><span class="rank-badge">11</span></td><td>Llama 3.3-70B</td><td>1.33</td><td><div class="score-bar"><div class="score-bar-fill" style="width:66.5%;background:rgba(255,255,255,0.25)"></div></div></td><td class="fit-no">No</td><td class="fit-yes">Yes</td><td>70B dense</td><td>66s</td></tr>
+          <tr><td><span class="rank-badge">12</span></td><td>Qwen2.5-Coder-32B</td><td>0.33</td><td><div class="score-bar"><div class="score-bar-fill" style="width:16.5%;background:var(--neon-pink)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>32B dense</td><td>5.4s</td></tr>
         </tbody>
       </table>
     </div>
 
-    <div style="margin-top:1.5rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+    <p style="margin-top:1rem; font-family:'Share Tech Mono',monospace; font-size:0.8rem; color:var(--chrome-mid);">* Fits as sole model only. No room for a second model alongside it after macOS overhead (~20 GB).</p>
+
+    <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
       <span class="method-badge">Dual LLM Judge<span class="tooltip">Every response judged independently by Claude Opus 4.5 and OpenAI o4-mini. Two model families reduces systematic bias. Disagreements >1.5 trigger manual review.</span></span>
       <span class="method-badge">30 Tasks<span class="tooltip">15 generic coding tasks (algorithms, refactoring, debugging, architecture), 5 non-coding (summarization, extraction, planning), 10 real-world tasks mined from 6,567 actual Claude Code prompts.</span></span>
       <span class="method-badge">Coding + Non-Coding<span class="tooltip">Not just HumanEval. Tasks include Swedish email extraction, MCP tool generation, Fortnox API refactoring, project status reports, and slide content generation.</span></span>
@@ -1000,14 +1018,14 @@ details.deep-dive .deep-content td {
       One task. One model. Cloud, laptop, and a Raspberry Pi. Same quality &mdash; wildly different speeds.
     </p>
     <p style="color: var(--chrome-mid); margin-bottom: 2rem;">
-      Task: "Summarize this project's status and prioritize next steps" &mdash; Qwen3-14B on all three tiers.
+      Task: "Summarize this project's status and prioritize next steps." Best available model per tier.
     </p>
 
     <div class="tier-grid">
       <div class="tier-card tier-cloud">
         <div class="tier-icon">&#9729;</div>
         <div class="tier-name">OpenRouter</div>
-        <div class="tier-detail">Cloud API</div>
+        <div class="tier-detail">Cloud API &middot; Qwen3-14B</div>
         <div class="tier-speed">12s</div>
         <div class="tier-detail">Score: 2.0 / 2.0</div>
         <div class="tier-detail mono" style="margin-top:1rem; color:var(--neon-cyan);">~$0.001/task</div>
@@ -1016,7 +1034,7 @@ details.deep-dive .deep-content td {
       <div class="tier-card tier-air">
         <div class="tier-icon">&#128187;</div>
         <div class="tier-name">MacBook Air M4</div>
-        <div class="tier-detail">32 GB &middot; 120 GB/s</div>
+        <div class="tier-detail">32 GB &middot; 120 GB/s &middot; Qwen3-14B</div>
         <div class="tier-speed">238s</div>
         <div class="tier-detail">Score: 2.0 / 2.0</div>
         <div class="tier-detail mono" style="margin-top:1rem; color:var(--neon-pink);">6.5 tok/s &middot; Free</div>
@@ -1025,7 +1043,7 @@ details.deep-dive .deep-content td {
       <div class="tier-card tier-pi">
         <div class="tier-icon">&#129302;</div>
         <div class="tier-name">Raspberry Pi 5</div>
-        <div class="tier-detail">8 GB &middot; CPU only</div>
+        <div class="tier-detail">8 GB &middot; CPU only &middot; Qwen2.5-7B</div>
         <div class="tier-speed">559s</div>
         <div class="tier-detail">Score: 2.0 / 2.0</div>
         <div class="tier-detail mono" style="margin-top:1rem; color:var(--neon-yellow);">0.6 tok/s &middot; Free</div>
@@ -1079,7 +1097,7 @@ details.deep-dive .deep-content td {
       Hardware pays for itself. Faster if you split with friends. The math is brutal for API providers.
     </p>
     <p style="color: var(--chrome-mid); margin-bottom: 1rem;">
-      Mac Studio M4 Max 128 GB &mdash; 40,000 SEK &mdash; amortized over 36 months + electricity.
+      Mac Studio M5 Max* 128 GB &mdash; ~40,000 SEK est. &mdash; amortized over 36 months + electricity.
       Based on actual usage: ~1.9B tokens/month.
     </p>
 
@@ -1157,7 +1175,7 @@ details.deep-dive .deep-content td {
       Two models. One silent box. 84 GB loaded, 44 GB free. Near-perfect quality at 55 tok/s.
     </p>
     <p style="color: var(--chrome-mid); margin-bottom: 0.5rem;">
-      Mac Studio M4 Max &middot; 128 GB Unified Memory &middot; 546 GB/s bandwidth &middot; Silent &middot; 120W
+      Mac Studio M5 Max* &middot; 128 GB Unified Memory &middot; ~614 GB/s bandwidth &middot; Silent &middot; ~120W
     </p>
 
     <div class="setup-box">
@@ -1186,8 +1204,12 @@ details.deep-dive .deep-content td {
       </div>
     </div>
 
-    <p style="text-align:center; margin-top:2rem; font-family:'Share Tech Mono',monospace; font-size:0.85rem; color:var(--chrome-mid);">
+    <p style="text-align:center; margin-top:2rem; font-family:'Share Tech Mono',monospace; font-size:0.95rem; color:var(--chrome-mid);">
       Total RAM: ~84 GB loaded &middot; 44 GB free for OS + context windows
+    </p>
+    <p style="text-align:center; margin-top:0.5rem; font-family:'Share Tech Mono',monospace; font-size:0.85rem; color:var(--chrome-dark);">
+      * M5 Max not yet announced. Specs estimated from Apple Silicon generational improvements.
+      All benchmarks run on M4 Max equivalent (via OpenRouter). Plan: buy when M5 ships (summer 2026).
     </p>
   </div>
 </section>
@@ -1447,7 +1469,7 @@ Include any code snippets or context the model needs.`,
     Get In Touch
   </a>
   <p style="margin-top:2rem; font-family:'Share Tech Mono',monospace; font-size:0.8rem; color:var(--chrome-dark);">
-    Target: Mac Studio M4 Max 128 GB (or M5 Max when available summer 2026)
+    * Mac Studio M5 Max &mdash; expected release summer 2026. Benchmarks based on M4 Max specs; M5 likely ~12% faster.
   </p>
 </section>
 
