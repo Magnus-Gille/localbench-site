@@ -1229,9 +1229,61 @@ details.deep-dive .deep-content td {
       Total: ~50 GB loaded &middot; ~58 GB free after OS. Rock solid &mdash; no swap risk, handles multiple concurrent users, both models always hot. Slightly lower peak quality (1.62-1.64) but much more practical for daily use and the hackathon booth.
     </p>
 
+    <!-- Option C -->
+    <h3 style="color:var(--neon-pink); margin-top:2.5rem; margin-bottom:1rem; font-size:1.1rem;">Option C: The 256 GB Beast</h3>
+    <p style="color:var(--chrome-light); font-size:1.05rem; margin-bottom:1rem;">
+      Or forget the trade-offs entirely. Load everything. Run the best model <em>and</em> three more alongside it.
+    </p>
+    <div class="setup-box">
+      <div class="setup-model" style="border-color: rgba(255, 45, 149, 0.3);">
+        <div class="model-role">Flagship &mdash; Near-Perfect Quality</div>
+        <div class="model-name neon-text" style="font-size:1.3rem;">GPT-oss-120B</div>
+        <div class="model-specs">
+          RAM: <strong>~80 GB</strong><br>
+          Score: <strong>1.89 / 2.0</strong><br>
+          Est. speed: <strong>~70 tok/s</strong> (819 GB/s on Ultra)
+        </div>
+      </div>
+
+      <div class="setup-model" style="border-color: rgba(255, 45, 149, 0.3);">
+        <div class="model-role">Coding &mdash; Ultra-Fast MoE</div>
+        <div class="model-name neon-text" style="font-size:1.3rem;">Qwen3-Coder-Next</div>
+        <div class="model-specs">
+          RAM: <strong>~46 GB</strong><br>
+          Score: <strong>1.62 / 2.0</strong><br>
+          Est. speed: <strong>~130 tok/s</strong>
+        </div>
+      </div>
+    </div>
+    <div class="setup-box" style="margin-top:1rem;">
+      <div class="setup-model" style="border-color: rgba(255, 45, 149, 0.3);">
+        <div class="model-role">Utility &mdash; Quick Tasks</div>
+        <div class="model-name neon-text" style="font-size:1.3rem;">GLM-4.7-Flash</div>
+        <div class="model-specs">
+          RAM: <strong>~4 GB</strong><br>
+          Score: <strong>1.64 / 2.0</strong><br>
+          Est. speed: <strong>~130 tok/s</strong>
+        </div>
+      </div>
+
+      <div class="setup-model" style="border-color: rgba(255, 45, 149, 0.3);">
+        <div class="model-role">Reasoning &mdash; 256 GB Exclusive</div>
+        <div class="model-name neon-text" style="font-size:1.3rem;">MiniMax-M2.5</div>
+        <div class="model-specs">
+          RAM: <strong>~100 GB</strong><br>
+          Score: <strong>1.68 / 2.0</strong><br>
+          <em>Only runs on 256 GB</em>
+        </div>
+      </div>
+    </div>
+    <p style="font-family:'Share Tech Mono',monospace; font-size:0.9rem; color:var(--chrome-mid); margin-top:0.8rem;">
+      Total: ~230 GB loaded on a Mac Studio M5 Ultra* 256 GB (~95,000 SEK). All four models hot simultaneously. No compromises, no swapping. The everything machine.
+      <br>Co-op cost at 4 people: <strong style="color:var(--neon-pink);">~720 SEK/person/month</strong> &mdash; still cheaper than one Claude MAX subscription.
+    </p>
+
     <p style="text-align:center; margin-top:2rem; font-family:'Share Tech Mono',monospace; font-size:0.85rem; color:var(--chrome-dark);">
-      * M5 Max not yet announced. Specs estimated from Apple Silicon generational improvements.
-      All benchmarks run on M4 Max equivalent (via OpenRouter). Plan: buy when M5 ships (summer 2026).
+      * M5 Max / M5 Ultra not yet announced. Specs estimated from Apple Silicon generational improvements.
+      All benchmarks run on M4 equivalent (via OpenRouter). Plan: buy when M5 ships (summer 2026).
     </p>
   </div>
 </section>
