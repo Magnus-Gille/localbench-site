@@ -1389,7 +1389,11 @@ details.deep-dive .deep-content td {
     <div class="faq-item">
       <div class="faq-q">Is GPT-oss-120B actually runnable locally?</div>
       <div class="faq-a">
-        <strong>This is the biggest open question.</strong> OpenAI released MXFP4 weights and a Metal reference implementation, but we have not confirmed it running via Ollama or MLX on Apple Silicon. This is the #1 Phase B validation item. If it doesn&rsquo;t work, the fallback is GLM-4.7-Flash (1.64 score, 4 GB, confirmed running locally) + Qwen3-Coder-Next (1.62 score, 46 GB).
+        <strong>Yes, but with caveats.</strong> People have run it on Apple Silicon via Ollama (<code>ollama pull gpt-oss:120b</code>), llama.cpp (native MXFP4), and MLX (via OpenHarmony-MLX). The model needs ~80 GB RAM, leaving ~28 GB free on a 128 GB Mac Studio &mdash; tight but functional as a solo model.
+        <br><br>
+        <strong>Real-world performance:</strong> Best reported is ~40 tok/s on optimized MLX, but practical experience is often slower. The Metal reference implementation from OpenAI is still experimental, not production-grade. Most Mac users actually run the smaller <strong>GPT-oss-20B</strong> (13 GB) instead.
+        <br><br>
+        <strong>Our take:</strong> GPT-oss-120B scored highest in our evaluation (1.89/2.0), but the local runtime is not yet battle-tested. <strong>Option B (Qwen3-Coder-Next + GLM-4.7-Flash) is the safer recommendation</strong> &mdash; both models are confirmed running reliably on Apple Silicon, use only 50 GB total, and leave comfortable headroom. If GPT-oss-120B matures, it becomes Option A.
       </div>
     </div>
 
