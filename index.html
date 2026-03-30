@@ -1172,22 +1172,44 @@ details.deep-dive .deep-content td {
     <div class="section-label">// The Recommended Configuration</div>
     <h2 class="neon-text">The Setup</h2>
     <p style="color: var(--chrome-light); font-size: 1.15rem; margin-bottom: 0.5rem;">
-      Two models. One silent box. 84 GB loaded, 44 GB free. Near-perfect quality at 55 tok/s.
+      Two options depending on your priorities: maximum quality or maximum headroom.
     </p>
-    <p style="color: var(--chrome-mid); margin-bottom: 0.5rem;">
+    <p style="color: var(--chrome-mid); margin-bottom: 1.5rem;">
       Mac Studio M5 Max* &middot; 128 GB Unified Memory &middot; ~614 GB/s bandwidth &middot; Silent &middot; ~120W
     </p>
 
-    <div class="setup-box">
+    <!-- Option A -->
+    <h3 style="color:var(--neon-yellow); margin-bottom:1rem; font-size:1.1rem;">Option A: Maximum Quality (solo model)</h3>
+    <div class="setup-box" style="grid-template-columns: 1fr;">
       <div class="setup-model">
-        <div class="model-role">Primary &mdash; Quality Workhorse</div>
+        <div class="model-role">Single Model &mdash; Best Score in the Evaluation</div>
         <div class="model-name neon-text" style="font-size:1.3rem;">GPT-oss-120B</div>
         <div class="model-specs">
           RAM: <strong>~80 GB</strong> (native MXFP4)<br>
           Active: <strong>5.1B</strong> params (MoE)<br>
-          Score: <strong>1.89 / 2.0</strong><br>
+          Score: <strong>1.89 / 2.0</strong> &mdash; near-perfect<br>
           Est. speed: <strong>~55 tok/s</strong><br>
-          Concurrent users: <strong>5</strong>
+          Concurrent users: <strong>5</strong><br>
+          Free after OS: <strong>~28 GB</strong> &mdash; works but no room for a second model
+        </div>
+      </div>
+    </div>
+    <p style="font-family:'Share Tech Mono',monospace; font-size:0.9rem; color:var(--chrome-mid); margin-top:0.8rem;">
+      Best quality, but you're all-in on one model. Swap between models by unloading/loading as needed (Ollama handles this automatically, but incurs a ~5-10s cold start).
+    </p>
+
+    <!-- Option B -->
+    <h3 style="color:var(--neon-green); margin-top:2.5rem; margin-bottom:1rem; font-size:1.1rem;">Option B: Dual-Model Setup (recommended for co-op)</h3>
+    <div class="setup-box">
+      <div class="setup-model">
+        <div class="model-role">Quality &mdash; Harder Tasks</div>
+        <div class="model-name neon-text" style="font-size:1.3rem;">Qwen3-Coder-Next</div>
+        <div class="model-specs">
+          RAM: <strong>~46 GB</strong><br>
+          Active: <strong>3B</strong> params (MoE)<br>
+          Score: <strong>1.62 / 2.0</strong><br>
+          Est. speed: <strong>~90 tok/s</strong><br>
+          Concurrent users: <strong>9</strong>
         </div>
       </div>
 
@@ -1203,11 +1225,11 @@ details.deep-dive .deep-content td {
         </div>
       </div>
     </div>
-
-    <p style="text-align:center; margin-top:2rem; font-family:'Share Tech Mono',monospace; font-size:0.95rem; color:var(--chrome-mid);">
-      Total RAM: ~84 GB loaded &middot; 44 GB free for OS + context windows
+    <p style="font-family:'Share Tech Mono',monospace; font-size:0.9rem; color:var(--chrome-mid); margin-top:0.8rem;">
+      Total: ~50 GB loaded &middot; ~58 GB free after OS. Rock solid &mdash; no swap risk, handles multiple concurrent users, both models always hot. Slightly lower peak quality (1.62-1.64) but much more practical for daily use and the hackathon booth.
     </p>
-    <p style="text-align:center; margin-top:0.5rem; font-family:'Share Tech Mono',monospace; font-size:0.85rem; color:var(--chrome-dark);">
+
+    <p style="text-align:center; margin-top:2rem; font-family:'Share Tech Mono',monospace; font-size:0.85rem; color:var(--chrome-dark);">
       * M5 Max not yet announced. Specs estimated from Apple Silicon generational improvements.
       All benchmarks run on M4 Max equivalent (via OpenRouter). Plan: buy when M5 ships (summer 2026).
     </p>
