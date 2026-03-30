@@ -598,6 +598,159 @@ footer a { color: var(--chrome-mid); }
   .cost-grid { grid-template-columns: 1fr; }
 }
 
+/* === DEEP DIVE EXPANDABLE === */
+details.deep-dive {
+  background: rgba(10, 10, 25, 0.9);
+  border: 1px solid rgba(0, 240, 255, 0.12);
+  border-left: 3px solid var(--neon-cyan);
+  margin: 1.5rem 0;
+  transition: border-color 0.3s;
+}
+
+details.deep-dive[open] {
+  border-left-color: var(--neon-pink);
+}
+
+details.deep-dive summary {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  user-select: none;
+}
+
+details.deep-dive summary::-webkit-details-marker { display: none; }
+
+details.deep-dive summary::before {
+  content: '>';
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1rem;
+  color: var(--neon-pink);
+  transition: transform 0.2s;
+}
+
+details.deep-dive[open] summary::before {
+  transform: rotate(90deg);
+}
+
+details.deep-dive[open] summary {
+  color: var(--neon-pink);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+details.deep-dive .deep-content {
+  padding: 1.5rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--chrome-light);
+}
+
+details.deep-dive .deep-content h4 {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--neon-cyan);
+  margin: 1.5rem 0 0.5rem;
+}
+
+details.deep-dive .deep-content h4:first-child {
+  margin-top: 0;
+}
+
+details.deep-dive .deep-content code {
+  font-family: 'Share Tech Mono', monospace;
+  background: rgba(0, 240, 255, 0.08);
+  padding: 0.1em 0.4em;
+  font-size: 0.85em;
+  color: var(--neon-green);
+}
+
+details.deep-dive .deep-content pre {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--chrome-light);
+  margin: 0.8rem 0;
+}
+
+details.deep-dive .deep-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.8rem;
+  margin: 0.8rem 0;
+}
+
+details.deep-dive .deep-content th {
+  text-align: left;
+  color: var(--neon-cyan);
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+details.deep-dive .deep-content td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* === FAQ === */
+.faq-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.5rem 0;
+}
+
+.faq-q {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--neon-pink);
+  margin-bottom: 0.5rem;
+}
+
+.faq-a {
+  font-size: 0.95rem;
+  color: var(--chrome-light);
+  line-height: 1.8;
+}
+
+.faq-a code {
+  font-family: 'Share Tech Mono', monospace;
+  background: rgba(0, 240, 255, 0.08);
+  padding: 0.1em 0.4em;
+  font-size: 0.85em;
+  color: var(--neon-green);
+}
+
+/* === STATUS BADGE === */
+.status-badge {
+  display: inline-block;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.65rem;
+  padding: 0.2rem 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.status-done { border: 1px solid var(--neon-green); color: var(--neon-green); }
+.status-pending { border: 1px solid var(--neon-yellow); color: var(--neon-yellow); }
+.status-planned { border: 1px solid var(--chrome-mid); color: var(--chrome-mid); }
+
 /* === PERCENTAGE BAR === */
 .pct-bar {
   height: 24px;
@@ -726,6 +879,62 @@ footer a { color: var(--chrome-mid); }
       <span class="method-badge">Real-World Prompts</span>
       <span class="method-badge">100% Judge Agreement</span>
     </div>
+
+    <details class="deep-dive">
+      <summary>Technical Deep Dive: Evaluation Methodology</summary>
+      <div class="deep-content">
+        <h4>Pipeline Architecture</h4>
+        <pre>[Task Definitions] ---> [Runner (OpenRouter / Ollama)] ---> [SQLite DB]
+                                                                    |
+[Analysis Reports] <--- [Judge (Opus + o4-mini)] <-----------------+</pre>
+        <p>Each phase is a separate CLI command. All state is persisted in SQLite (WAL mode). Runs are idempotent &mdash; failed or interrupted runs can be resumed with <code>--resume</code> without re-billing completed tasks.</p>
+
+        <h4>Judging Protocol</h4>
+        <p>Every model response is scored by <strong>two independent judges</strong> from different model families:</p>
+        <table>
+          <tr><th>Judge</th><th>Model</th><th>Why</th></tr>
+          <tr><td>Judge A</td><td>Claude Opus 4.5 (via OpenRouter)</td><td>Strong on idiomatic code quality</td></tr>
+          <tr><td>Judge B</td><td>OpenAI o4-mini (via OpenRouter)</td><td>Reasoning model, strong on correctness</td></tr>
+        </table>
+        <p>Scoring uses a <strong>3-point scale</strong> across 3 dimensions:</p>
+        <table>
+          <tr><th>Score</th><th>Correctness</th><th>Completeness</th><th>Quality</th></tr>
+          <tr><td style="color:var(--neon-pink)">fail (0)</td><td>Broken or wrong</td><td>Missing key parts</td><td>Unusable structure</td></tr>
+          <tr><td style="color:var(--neon-yellow)">acceptable (1)</td><td>Works, some gaps</td><td>Most covered</td><td>OK but room for improvement</td></tr>
+          <tr><td style="color:var(--neon-green)">good (2)</td><td>Correct, edge cases</td><td>All addressed</td><td>Professional quality</td></tr>
+        </table>
+        <p>Judge agreement on this evaluation: <strong>100%</strong>. Disagreements &gt;1.5 on any dimension trigger manual review (none were triggered).</p>
+
+        <h4>Task Design</h4>
+        <p>30 tasks across 7 categories, sourced from two approaches:</p>
+        <p><strong>20 generic tasks</strong> (designed to cover coding fundamentals): simple coding (4), refactoring (3), architecture (2), debugging (3), multi-file generation (2), reasoning (1), non-coding (5).</p>
+        <p><strong>10 real-world tasks</strong> (mined from 6,567 actual Claude Code prompts): status reports, error debugging, commit messages, Express refactoring, Swedish email extraction, documentation, deployment debugging, slide generation, MCP tool implementation, fact-checking.</p>
+        <p>Real-world tasks were QA&rsquo;d by Codex (GPT-5.4) in an adversarial review pass. 3 tasks were revised based on feedback (ambiguous dates, missing context, over-broad scope).</p>
+
+        <h4>Proxy Validity</h4>
+        <p>OpenRouter serves models at provider-chosen precision (typically FP16/BF16). Local inference uses Q4/Q8 quantization. Our three-tier test (Cloud vs Air vs Pi) showed <strong>Qwen3-14B quality holds within noise locally</strong> (1.48 local vs 1.55 cloud). However, highly sparse MoE models like GLM-4.7-Flash showed more degradation (1.07 local vs 1.70 cloud). All cloud scores should be treated as <strong>upper bounds</strong>.</p>
+
+        <p style="margin-top: 1rem;"><a href="https://github.com/Magnus-Gille/home-server-inference-evaluation" style="color:var(--neon-cyan);">Full source code, task definitions, and raw data on GitHub &rarr;</a></p>
+      </div>
+    </details>
+
+    <details class="deep-dive">
+      <summary>Technical Deep Dive: Why GPT-oss-120B Wins</summary>
+      <div class="deep-content">
+        <p><strong>GPT-oss-120B</strong> is OpenAI&rsquo;s open-weight MoE model (Apache 2.0). Key properties:</p>
+        <table>
+          <tr><th>Property</th><th>Value</th></tr>
+          <tr><td>Total parameters</td><td>117B</td></tr>
+          <tr><td>Active parameters per token</td><td>5.1B (MoE routing)</td></tr>
+          <tr><td>Native format</td><td>MXFP4 (~80 GB on disk)</td></tr>
+          <tr><td>Apple Silicon</td><td>Metal reference implementation from OpenAI</td></tr>
+          <tr><td>Quality score</td><td>1.89 / 2.0 (near-perfect across all categories)</td></tr>
+        </table>
+        <p>The MoE architecture means it reads only ~10 GB of weights per token, despite being a 117B model. On a Mac Studio M4 Max (546 GB/s bandwidth), that translates to ~55 tok/s &mdash; fast enough for interactive use.</p>
+        <h4>Caveat</h4>
+        <p>This model has <strong>not been validated running locally via Ollama/MLX</strong> on Apple Silicon. The MXFP4 format and Metal implementation exist but real-world performance needs Phase B testing on actual hardware. This is the single highest-risk item in our recommendation.</p>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -775,6 +984,33 @@ footer a { color: var(--chrome-mid); }
       Same quality everywhere. 20x&ndash;50x slower locally &mdash; but <strong style="color:var(--neon-green)">free and private</strong>.
       <br>On a Mac Studio (546 GB/s), those 238s become ~60s.
     </p>
+
+    <details class="deep-dive">
+      <summary>Technical Deep Dive: Hardware Comparison Matrix</summary>
+      <div class="deep-content">
+        <h4>Platforms Evaluated</h4>
+        <table>
+          <tr><th>Platform</th><th>RAM</th><th>Bandwidth</th><th>Power</th><th>Noise</th><th>Price (SEK)</th></tr>
+          <tr><td style="color:var(--neon-cyan)">Mac Studio M4 Max 128GB</td><td>128 GB unified</td><td>546 GB/s</td><td>~120W</td><td>Silent</td><td>~40,000</td></tr>
+          <tr><td>Mac Studio M3 Ultra 256GB</td><td>256 GB unified</td><td>819 GB/s</td><td>~180W</td><td>Silent</td><td>~95,000</td></tr>
+          <tr><td>RTX 5090 PC</td><td>32 GB VRAM</td><td>1,792 GB/s</td><td>~950W</td><td>Very loud</td><td>~54,000</td></tr>
+          <tr><td>RTX 4090 PC (used)</td><td>24 GB VRAM</td><td>1,008 GB/s</td><td>~750W</td><td>Loud</td><td>~36,500</td></tr>
+          <tr><td>Dual RTX 5090</td><td>64 GB VRAM</td><td>3,584 GB/s</td><td>~1,500W</td><td>Extreme</td><td>~106,000</td></tr>
+          <tr><td style="color:var(--neon-pink)">MacBook Air M4 32GB</td><td>32 GB unified</td><td>120 GB/s</td><td>~15W</td><td>Silent</td><td>~20,000</td></tr>
+          <tr><td style="color:var(--neon-yellow)">Raspberry Pi 5 8GB</td><td>8 GB</td><td>~30 GB/s</td><td>~10W</td><td>Silent</td><td>~1,200</td></tr>
+        </table>
+
+        <h4>Why Mac Studio over NVIDIA?</h4>
+        <p><strong>Unified memory is the differentiator.</strong> NVIDIA GPUs have higher bandwidth but are limited by VRAM &mdash; an RTX 5090 with 32 GB cannot run GPT-oss-120B (80 GB). You&rsquo;d need dual GPUs with PCIe tensor parallelism, which adds complexity, noise, power draw, and costs more than the Mac.</p>
+        <p>The Mac Studio at 128 GB unified memory fits GPT-oss-120B + GLM-4.7-Flash simultaneously in a box that draws 120W and is silent. An equivalent NVIDIA setup draws 1,500W and sounds like a jet engine.</p>
+
+        <h4>Over 3 years: electricity savings</h4>
+        <p>Mac Studio (8h/day): ~150 SEK/month. RTX 5090 PC (8h/day): ~450 SEK/month. <strong>~10,800 SEK saved</strong> over 36 months &mdash; that covers 25% of the Mac&rsquo;s purchase price.</p>
+
+        <h4>RTX 4090/5090: No NVLink</h4>
+        <p>Neither the RTX 4090 nor RTX 5090 support NVLink. Multi-GPU model parallelism uses PCIe bandwidth (~25 GB/s practical), which is 24x slower than NVLink. It works for inference but limits throughput and adds latency.</p>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -821,6 +1057,35 @@ footer a { color: var(--chrome-mid); }
         <div class="breakeven">Break-even: 2 months</div>
       </div>
     </div>
+    <details class="deep-dive">
+      <summary>Technical Deep Dive: Full Cost Model</summary>
+      <div class="deep-content">
+        <h4>Assumptions</h4>
+        <p>Based on actual measured token usage: ~1.9B tokens/month (daily: ~115M, weekly: ~740M). Usage split: 30% input tokens, 70% output tokens. Hardware depreciation: 36 months. Electricity: 2 SEK/kWh, 8h/day average load.</p>
+
+        <h4>API costs at actual volume (SEK/month)</h4>
+        <table>
+          <tr><th>Model</th><th>Input price/M</th><th>Output price/M</th><th>Monthly (1.9B tok)</th></tr>
+          <tr><td>Qwen3-32B</td><td>$0.10</td><td>$0.30</td><td>~4,600 SEK</td></tr>
+          <tr><td>GPT-oss-120B</td><td>$0.30</td><td>$1.20</td><td>~18,000 SEK</td></tr>
+          <tr><td>Qwen3-14B</td><td>$0.14</td><td>$0.56</td><td>~8,500 SEK</td></tr>
+          <tr><td>GLM-4.7-Flash</td><td>$0.06</td><td>$0.40</td><td>~5,300 SEK</td></tr>
+        </table>
+        <p>Even the cheapest model (Qwen3-32B) costs 4,600 SEK/month. The Mac Studio at 1,186 SEK/month is <strong>4x cheaper</strong>.</p>
+
+        <h4>Break-even sensitivity</h4>
+        <table>
+          <tr><th>Usage</th><th>API/month (Qwen3-32B)</th><th>HW/month</th><th>Break-even</th></tr>
+          <tr><td>500M tok/mo (light)</td><td>~1,200 SEK</td><td>1,186 SEK</td><td>Never (roughly equal)</td></tr>
+          <tr><td>1B tok/mo</td><td>~2,400 SEK</td><td>1,186 SEK</td><td>~33 months</td></tr>
+          <tr><td>1.9B tok/mo (actual)</td><td>~4,600 SEK</td><td>1,186 SEK</td><td><strong>~12 months</strong></td></tr>
+          <tr><td>3B tok/mo (co-op)</td><td>~7,300 SEK</td><td>1,186 SEK</td><td><strong>~7 months</strong></td></tr>
+        </table>
+
+        <h4>What&rsquo;s NOT in the cost model</h4>
+        <p>Not included: time spent on setup/maintenance, opportunity cost of waiting for tasks to complete locally (slower), the value of privacy (hard to quantify), and the resale value of the hardware after 3 years.</p>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -912,6 +1177,128 @@ footer a { color: var(--chrome-mid); }
         </ul>
       </div>
     </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================ -->
+<!-- FAQ -->
+<!-- ============================================ -->
+<section>
+  <div class="container">
+    <div class="section-label">// Questions &amp; Status</div>
+    <h2 class="neon-text">FAQ</h2>
+
+    <div class="faq-item">
+      <div class="faq-q">What is the current status of this evaluation?</div>
+      <div class="faq-a">
+        <span class="status-badge status-done">Done</span> Phase A &mdash; Cloud quality screening (12 models, 30 tasks, 758 judge evaluations)<br>
+        <span class="status-badge status-done">Done</span> Three-tier testing (Cloud / MacBook Air M4 / Raspberry Pi 5)<br>
+        <span class="status-badge status-done">Done</span> Cost analysis and hardware comparison<br>
+        <span class="status-badge status-done">Done</span> Real-world task mining from 6,567 actual prompts<br>
+        <span class="status-badge status-pending">Pending</span> Phase B &mdash; Validate GPT-oss-120B running locally on real Apple Silicon<br>
+        <span class="status-badge status-pending">Pending</span> Phase B &mdash; Concurrent user load testing (1/3/5 simultaneous sessions)<br>
+        <span class="status-badge status-pending">Pending</span> Phase B &mdash; Q4 vs Q8 quantization quality comparison on real hardware<br>
+        <span class="status-badge status-planned">Planned</span> Agentic workflow testing (aider + Ollama for multi-turn coding)<br>
+        <span class="status-badge status-planned">Planned</span> M5 Max evaluation (when Apple announces, expected summer 2026)
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">How reliable are these scores?</div>
+      <div class="faq-a">
+        The scores are <strong>directional, not definitive</strong>. 30 tasks is enough to rank models confidently but not enough for precise per-category claims (some categories have only 2-4 tasks). The dual-judge approach (Opus + o4-mini) with 100% agreement adds confidence. Cloud scores are an <strong>upper bound</strong> &mdash; local quantized inference may score slightly lower, though our Air test showed minimal degradation for dense models.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Why not just use existing benchmarks (HumanEval, SWE-Bench)?</div>
+      <div class="faq-a">
+        Existing benchmarks test generic capabilities. This evaluation tests <strong>your actual use cases</strong> &mdash; Swedish email extraction, MCP tool generation, Fortnox invoice refactoring, project status summaries. The question isn&rsquo;t "which model is smartest?" but "which model can do <em>my work</em> well enough that I stop paying for API tokens?"
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What about fine-tuning?</div>
+      <div class="faq-a">
+        Not evaluated. Fine-tuning could improve task-specific quality (especially for Swedish text and domain-specific patterns like Fortnox API formats), but it adds complexity and maintenance burden. The base models scored well enough on most tasks without fine-tuning.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">Is GPT-oss-120B actually runnable locally?</div>
+      <div class="faq-a">
+        <strong>This is the biggest open question.</strong> OpenAI released MXFP4 weights and a Metal reference implementation, but we have not confirmed it running via Ollama or MLX on Apple Silicon. This is the #1 Phase B validation item. If it doesn&rsquo;t work, the fallback is GLM-4.7-Flash (1.64 score, 4 GB, confirmed running locally) + Qwen3-Coder-Next (1.62 score, 46 GB).
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What if I have different tasks?</div>
+      <div class="faq-a">
+        The framework is open-source and designed for custom tasks. You can add your own task definitions and re-run the evaluation. See the section below for how to submit tasks.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">What&rsquo;s the plan ahead?</div>
+      <div class="faq-a">
+        <strong>Short term (April 2026):</strong> Rent a Mac Studio for a weekend, validate GPT-oss-120B locally, run concurrent load tests, measure real tok/s and TTFT.<br>
+        <strong>Medium term (Summer 2026):</strong> Wait for M5 Max announcement. If bandwidth improves to 614+ GB/s, that&rsquo;s 12% faster inference for free. Buy the hardware, deploy for the co-op.<br>
+        <strong>Long term:</strong> Build the hackathon booth. Host vibe-coding workshops. Run a local inference service for 3-5 people at 300 SEK/person/month.
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================ -->
+<!-- SUBMIT YOUR OWN TASKS -->
+<!-- ============================================ -->
+<section>
+  <div class="container">
+    <div class="section-label">// Open Source</div>
+    <h2 class="neon-text">Submit Your Own Tasks</h2>
+    <p style="color: var(--chrome-mid); margin-bottom: 1.5rem; max-width: 700px;">
+      Don&rsquo;t trust our benchmarks? Think we&rsquo;re missing your use case?
+      Add your own evaluation tasks and we&rsquo;ll run them against all models.
+    </p>
+
+    <div class="card">
+      <h3 style="color:var(--neon-cyan); margin-bottom:1rem;">How to contribute a task</h3>
+      <div style="font-family:'Share Tech Mono',monospace; font-size:0.85rem; line-height:2; color:var(--chrome-light);">
+        <strong style="color:var(--neon-pink);">1.</strong> Fork <a href="https://github.com/Magnus-Gille/home-server-inference-evaluation" style="color:var(--neon-cyan);">the repo</a><br>
+        <strong style="color:var(--neon-pink);">2.</strong> Add your task to <code>src/tasks/real-world.ts</code> (or create a new category file)<br>
+        <strong style="color:var(--neon-pink);">3.</strong> Follow the <code>TaskDefinition</code> interface:
+      </div>
+      <pre style="background:rgba(0,0,0,0.4); border:1px solid rgba(255,255,255,0.08); padding:1rem; overflow-x:auto; font-family:'Share Tech Mono',monospace; font-size:0.8rem; margin:1rem 0; color:var(--chrome-light);">{
+  id: 'community-001',
+  category: 'debugging',        // or: simple-coding, refactoring, architecture,
+                                 //     multi-file, reasoning, non-coding
+  title: 'Your Task Title',
+  difficulty: 3,                 // 1-5
+  maxTokens: 2000,
+  tags: ['your', 'tags'],
+  prompt: `Your full prompt here. Be specific.
+Include any code snippets or context the model needs.`,
+  expectedCapabilities: [
+    'what a good answer should include',
+    'another expected capability',
+  ],
+}</pre>
+      <div style="font-family:'Share Tech Mono',monospace; font-size:0.85rem; line-height:2; color:var(--chrome-light);">
+        <strong style="color:var(--neon-pink);">4.</strong> Run <code>npx vitest run tests/tasks.test.ts</code> to validate<br>
+        <strong style="color:var(--neon-pink);">5.</strong> Open a PR with a description of what your task tests and why it matters<br>
+        <strong style="color:var(--neon-pink);">6.</strong> We&rsquo;ll run it against all 12 models, judge it, and add results to this page
+      </div>
+    </div>
+
+    <p style="margin-top:1.5rem; text-align:center;">
+      <a href="https://github.com/Magnus-Gille/home-server-inference-evaluation" style="color:var(--neon-cyan); font-family:'Orbitron',monospace; font-size:0.85rem; letter-spacing:0.1em;">
+        View the source on GitHub &rarr;
+      </a>
+    </p>
   </div>
 </section>
 
