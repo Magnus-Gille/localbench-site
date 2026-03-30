@@ -31,7 +31,8 @@ body {
   color: var(--chrome-light);
   font-family: 'Rajdhani', sans-serif;
   font-weight: 400;
-  line-height: 1.6;
+  font-size: 1.15rem;
+  line-height: 1.7;
   overflow-x: hidden;
 }
 
@@ -258,12 +259,12 @@ section {
   width: 100%;
   border-collapse: collapse;
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 
 .leaderboard-table th {
   font-family: 'Orbitron', monospace;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   color: var(--neon-cyan);
@@ -365,7 +366,7 @@ section {
 .tier-pi .tier-speed { color: var(--neon-yellow); }
 
 .tier-detail {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--chrome-mid);
 }
 
@@ -717,14 +718,14 @@ details.deep-dive .deep-content td {
 
 .faq-q {
   font-family: 'Orbitron', monospace;
-  font-size: 0.85rem;
+  font-size: 1rem;
   letter-spacing: 0.05em;
   color: var(--neon-pink);
   margin-bottom: 0.5rem;
 }
 
 .faq-a {
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   color: var(--chrome-light);
   line-height: 1.8;
 }
@@ -787,11 +788,56 @@ details.deep-dive .deep-content td {
 .method-badge {
   display: inline-block;
   border: 1px solid rgba(0, 240, 255, 0.3);
-  padding: 0.3rem 0.8rem;
+  padding: 0.4rem 1rem;
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   color: var(--neon-cyan);
   margin: 0.2rem;
+  position: relative;
+  cursor: help;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.method-badge:hover {
+  border-color: var(--neon-pink);
+  background: rgba(255, 45, 149, 0.08);
+}
+
+.method-badge .tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10, 10, 25, 0.97);
+  border: 1px solid var(--neon-pink);
+  padding: 0.8rem 1rem;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--chrome-light);
+  width: 280px;
+  line-height: 1.5;
+  text-align: left;
+  z-index: 100;
+  transition: opacity 0.2s, visibility 0.2s;
+  pointer-events: none;
+}
+
+.method-badge .tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--neon-pink);
+}
+
+.method-badge:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
 }
 </style>
 </head>
@@ -838,6 +884,9 @@ details.deep-dive .deep-content td {
   <div class="container">
     <div class="section-label">// Model Quality Rankings</div>
     <h2 class="neon-text">The Leaderboard</h2>
+    <p style="color: var(--chrome-light); font-size: 1.15rem; margin-bottom: 0.5rem;">
+      We threw 30 real tasks at 12 open-weight models. Two AI judges scored every answer.
+    </p>
     <p style="color: var(--chrome-mid); margin-bottom: 2rem; max-width: 600px;">
       30 tasks. Dual LLM judges (Claude Opus + OpenAI o4-mini). Scale: 0&nbsp;=&nbsp;fail, 1&nbsp;=&nbsp;acceptable, 2&nbsp;=&nbsp;good.
     </p>
@@ -873,11 +922,11 @@ details.deep-dive .deep-content td {
     </div>
 
     <div style="margin-top:1.5rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
-      <span class="method-badge">Dual LLM Judge</span>
-      <span class="method-badge">30 Tasks</span>
-      <span class="method-badge">Coding + Non-Coding</span>
-      <span class="method-badge">Real-World Prompts</span>
-      <span class="method-badge">100% Judge Agreement</span>
+      <span class="method-badge">Dual LLM Judge<span class="tooltip">Every response judged independently by Claude Opus 4.5 and OpenAI o4-mini. Two model families reduces systematic bias. Disagreements >1.5 trigger manual review.</span></span>
+      <span class="method-badge">30 Tasks<span class="tooltip">15 generic coding tasks (algorithms, refactoring, debugging, architecture), 5 non-coding (summarization, extraction, planning), 10 real-world tasks mined from 6,567 actual Claude Code prompts.</span></span>
+      <span class="method-badge">Coding + Non-Coding<span class="tooltip">Not just HumanEval. Tasks include Swedish email extraction, MCP tool generation, Fortnox API refactoring, project status reports, and slide content generation.</span></span>
+      <span class="method-badge">Real-World Prompts<span class="tooltip">10 tasks derived from analyzing the user's actual prompt history: commit messages (8% of prompts), debugging (5%), documentation (8%), status reports (7%), Swedish tasks (5%).</span></span>
+      <span class="method-badge">100% Judge Agreement<span class="tooltip">Opus and o4-mini agreed on the score for every single evaluation in this batch. This is unusually high &mdash; likely because the 3-point scale (fail/acceptable/good) is coarser than typical 1-5 scales.</span></span>
     </div>
 
     <details class="deep-dive">
@@ -947,6 +996,9 @@ details.deep-dive .deep-content td {
   <div class="container">
     <div class="section-label">// Same Model, Same Task, Three Machines</div>
     <h2 class="neon-text">The Speed Test</h2>
+    <p style="color: var(--chrome-light); font-size: 1.15rem; margin-bottom: 0.5rem;">
+      One task. One model. Cloud, laptop, and a Raspberry Pi. Same quality &mdash; wildly different speeds.
+    </p>
     <p style="color: var(--chrome-mid); margin-bottom: 2rem;">
       Task: "Summarize this project's status and prioritize next steps" &mdash; Qwen3-14B on all three tiers.
     </p>
@@ -1023,9 +1075,12 @@ details.deep-dive .deep-content td {
   <div class="container">
     <div class="section-label">// The Economics</div>
     <h2 class="neon-text">What It Costs</h2>
+    <p style="color: var(--chrome-light); font-size: 1.15rem; margin-bottom: 0.5rem;">
+      Hardware pays for itself. Faster if you split with friends. The math is brutal for API providers.
+    </p>
     <p style="color: var(--chrome-mid); margin-bottom: 1rem;">
       Mac Studio M4 Max 128 GB &mdash; 40,000 SEK &mdash; amortized over 36 months + electricity.
-      <br>Based on actual usage: ~1.9B tokens/month.
+      Based on actual usage: ~1.9B tokens/month.
     </p>
 
     <div class="cost-grid">
@@ -1098,6 +1153,9 @@ details.deep-dive .deep-content td {
   <div class="container">
     <div class="section-label">// The Recommended Configuration</div>
     <h2 class="neon-text">The Setup</h2>
+    <p style="color: var(--chrome-light); font-size: 1.15rem; margin-bottom: 0.5rem;">
+      Two models. One silent box. 84 GB loaded, 44 GB free. Near-perfect quality at 55 tok/s.
+    </p>
     <p style="color: var(--chrome-mid); margin-bottom: 0.5rem;">
       Mac Studio M4 Max &middot; 128 GB Unified Memory &middot; 546 GB/s bandwidth &middot; Silent &middot; 120W
     </p>
@@ -1143,6 +1201,9 @@ details.deep-dive .deep-content td {
   <div class="container">
     <div class="section-label">// Workload Distribution</div>
     <h2 class="neon-text">What Moves Local?</h2>
+    <p style="color: var(--chrome-light); font-size: 1.15rem; margin-bottom: 0.5rem;">
+      Half your work doesn't need the cloud. Refactoring, debugging, and docs score perfect locally.
+    </p>
     <p style="color: var(--chrome-mid); margin-bottom: 1rem;">
       Analysis of 6,567 actual Claude Code prompts. ~50% of work can run locally.
     </p>
@@ -1189,6 +1250,9 @@ details.deep-dive .deep-content td {
   <div class="container">
     <div class="section-label">// Questions &amp; Status</div>
     <h2 class="neon-text">FAQ</h2>
+    <p style="color: var(--chrome-light); font-size: 1.15rem; margin-bottom: 1.5rem;">
+      What's done, what's not, and what we're honest about not knowing yet.
+    </p>
 
     <div class="faq-item">
       <div class="faq-q">What is the current status of this evaluation?</div>
@@ -1260,9 +1324,12 @@ details.deep-dive .deep-content td {
   <div class="container">
     <div class="section-label">// Open Source</div>
     <h2 class="neon-text">Submit Your Own Tasks</h2>
+    <p style="color: var(--chrome-light); font-size: 1.15rem; margin-bottom: 0.5rem;">
+      Don't trust our benchmarks? Good. Add yours and we'll run them.
+    </p>
     <p style="color: var(--chrome-mid); margin-bottom: 1.5rem; max-width: 700px;">
-      Don&rsquo;t trust our benchmarks? Think we&rsquo;re missing your use case?
-      Add your own evaluation tasks and we&rsquo;ll run them against all models.
+      The framework is open-source. Fork it, add a task definition, open a PR.
+      We'll run it against all 12 models and publish the results here.
     </p>
 
     <div class="card">
@@ -1299,6 +1366,67 @@ Include any code snippets or context the model needs.`,
         View the source on GitHub &rarr;
       </a>
     </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================ -->
+<!-- TIMELINE -->
+<!-- ============================================ -->
+<section>
+  <div class="container">
+    <div class="section-label">// The Road Ahead</div>
+    <h2 class="neon-text">Timeline</h2>
+    <p style="color: var(--chrome-light); font-size: 1.15rem; margin-bottom: 2rem;">
+      From data to hardware. Three phases, six months, one machine.
+    </p>
+
+    <div style="position:relative; padding-left: 3rem;">
+      <!-- Vertical line -->
+      <div style="position:absolute; left: 0.8rem; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--neon-cyan), var(--neon-pink), var(--neon-yellow));"></div>
+
+      <!-- Phase 1 -->
+      <div style="position:relative; margin-bottom: 3rem;">
+        <div style="position:absolute; left: -2.6rem; top: 0.2rem; width: 1.2rem; height: 1.2rem; border: 2px solid var(--neon-cyan); background: var(--bg-dark);"></div>
+        <div style="font-family:'Orbitron',monospace; font-size:0.75rem; letter-spacing:0.15em; color:var(--neon-cyan);">MARCH&ndash;APRIL 2026</div>
+        <h3 style="font-size:1.4rem; margin: 0.3rem 0;">Phase A: Evaluate &amp; Decide</h3>
+        <p style="color:var(--chrome-mid);">
+          <span class="status-badge status-done">Done</span> Run 385 inference tests across 12 models and 3 hardware tiers.
+          Share results. Collect feedback from co-op candidates. Accept community task submissions via PR.
+          Validate GPT-oss-120B running locally on rented Mac Studio.
+        </p>
+      </div>
+
+      <!-- Phase 2 -->
+      <div style="position:relative; margin-bottom: 3rem;">
+        <div style="position:absolute; left: -2.6rem; top: 0.2rem; width: 1.2rem; height: 1.2rem; border: 2px solid var(--neon-pink); background: var(--bg-dark);"></div>
+        <div style="font-family:'Orbitron',monospace; font-size:0.75rem; letter-spacing:0.15em; color:var(--neon-pink);">MAY&ndash;JUNE 2026</div>
+        <h3 style="font-size:1.4rem; margin: 0.3rem 0;">Phase B: Validate &amp; Prepare</h3>
+        <p style="color:var(--chrome-mid);">
+          <span class="status-badge status-pending">Pending</span>
+          Concurrent user load testing on real hardware (1/3/5 sessions).
+          Agentic workflow testing with aider + Ollama.
+          Quantization quality comparison (Q4 vs Q8).
+          Finalize co-op group and cost-sharing agreement.
+          Monitor M5 Max announcement from Apple.
+        </p>
+      </div>
+
+      <!-- Phase 3 -->
+      <div style="position:relative;">
+        <div style="position:absolute; left: -2.6rem; top: 0.2rem; width: 1.2rem; height: 1.2rem; border: 2px solid var(--neon-yellow); background: var(--bg-dark);"></div>
+        <div style="font-family:'Orbitron',monospace; font-size:0.75rem; letter-spacing:0.15em; color:var(--neon-yellow);">JUNE&ndash;JULY 2026</div>
+        <h3 style="font-size:1.4rem; margin: 0.3rem 0;">Phase C: Buy &amp; Deploy</h3>
+        <p style="color:var(--chrome-mid);">
+          <span class="status-badge status-planned">Planned</span>
+          Mac Studio M5 Max 128 GB drops (expected). Purchase as co-op.
+          Deploy GPT-oss-120B + GLM-4.7-Flash.
+          Set up Ollama as always-on inference server.
+          Host first hackathon booth &mdash; solstolar, fika, and local AI in the garden.
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 
