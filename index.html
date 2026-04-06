@@ -859,27 +859,27 @@ details.deep-dive .deep-content td {
   <h1 class="chrome-text">LOCAL INFERENCE<br>MACHINE</h1>
   <p class="tagline">Why pay for tokens when you can own the factory?</p>
 
-  <p style="max-width: 640px; text-align: center; color: var(--chrome-light); font-size: 1.2rem; line-height: 1.7; margin-bottom: 2.5rem; animation: fadeInUp 1s ease-out 0.3s both;">
-    Burning through your AI subscription every month and still hitting rate limits?
-    Curious about running models on your own hardware but unsure if the quality holds up,
-    what it actually costs, or whether it's worth the investment?
+  <p style="max-width: 660px; text-align: center; color: var(--chrome-light); font-size: 1.2rem; line-height: 1.7; margin-bottom: 2.5rem; animation: fadeInUp 1s ease-out 0.3s both;">
+    You're not asking "can a local model answer my questions?" You're asking:
+    <em>can it handle the sub-tasks that Opus delegates when you say "do the analysis"?</em>
+    Those sub-tasks are where 90% of your tokens actually go.
     <br><br>
-    <span style="color: var(--neon-cyan);">We tested 12 models across 30 real tasks on three hardware tiers
-    &mdash; from a Raspberry Pi to a Mac Studio &mdash; so you don't have to guess.</span>
+    <span style="color: var(--neon-cyan);">We classified 750 real prompts from 56 Claude Code projects, ran 63 tasks across 16 models
+    on three hardware tiers, and built an orchestration benchmark to find out.</span>
   </p>
 
   <div class="hero-stats">
     <div class="hero-stat">
-      <div class="value">12</div>
+      <div class="value">16</div>
       <div class="label">Models Tested</div>
     </div>
     <div class="hero-stat">
-      <div class="value">385</div>
-      <div class="label">Inference Runs</div>
+      <div class="value">63</div>
+      <div class="label">Tasks</div>
     </div>
     <div class="hero-stat">
-      <div class="value">758</div>
-      <div class="label">Judge Evaluations</div>
+      <div class="value">97.3%</div>
+      <div class="label">Prompts Offloadable</div>
     </div>
     <div class="hero-stat">
       <div class="value">3</div>
@@ -893,6 +893,77 @@ details.deep-dive .deep-content td {
 <div class="divider divider-thick"></div>
 
 <!-- ============================================ -->
+<!-- KEY INSIGHT: PROMPT MINING -->
+<!-- ============================================ -->
+<section>
+  <div class="container">
+    <div class="section-label">// The Finding That Changes Everything</div>
+    <h2 class="neon-text">97.3% Offloadable</h2>
+    <p style="color: var(--chrome-light); font-size: 1.15rem; margin-bottom: 0.5rem;">
+      We analyzed 750 real prompts from 56 Claude Code projects. Only 2.7% genuinely need frontier models.
+    </p>
+    <p style="color: var(--chrome-mid); margin-bottom: 2rem;">
+      750 prompts &middot; 56 projects &middot; classified by category, complexity, and minimum model tier.
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+      <div class="card" style="text-align:center;">
+        <div style="font-family:'Orbitron',monospace; font-size:3rem; font-weight:900; color:var(--neon-green); text-shadow: 0 0 20px rgba(57,255,20,0.4);">97.3%</div>
+        <div style="font-family:'Rajdhani',sans-serif; font-size:1.1rem; color:var(--chrome-mid); text-transform:uppercase; letter-spacing:0.1em;">Runs on Local Models</div>
+        <div style="margin-top:0.8rem; font-size:0.95rem; color:var(--chrome-light);">&#8804; local-large tier (e.g. Gemma4-26B, GLM-4.7-Flash)</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-family:'Orbitron',monospace; font-size:3rem; font-weight:900; color:var(--neon-cyan); text-shadow: 0 0 20px rgba(0,240,255,0.4);">78.0%</div>
+        <div style="font-family:'Rajdhani',sans-serif; font-size:1.1rem; color:var(--chrome-mid); text-transform:uppercase; letter-spacing:0.1em;">Runs on Edge Tier</div>
+        <div style="margin-top:0.8rem; font-size:0.95rem; color:var(--chrome-light);">Gemma4-E2B or GLM-4.7-Flash quality suffices</div>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-family:'Orbitron',monospace; font-size:3rem; font-weight:900; color:var(--neon-pink); text-shadow: 0 0 20px rgba(255,45,149,0.4);">2.7%</div>
+        <div style="font-family:'Rajdhani',sans-serif; font-size:1.1rem; color:var(--chrome-mid); text-transform:uppercase; letter-spacing:0.1em;">Needs Frontier</div>
+        <div style="margin-top:0.8rem; font-size:0.95rem; color:var(--chrome-light);">Claude / GPT-4 class. Mostly architecture tasks.</div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+      <div>
+        <h3 style="color:var(--neon-green); margin-bottom:1rem; font-size:1.1rem;">Top Prompt Categories</h3>
+        <div style="font-family:'Share Tech Mono',monospace; font-size:0.95rem; line-height:2.2;">
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:0.2rem 0;">
+            <span>Coding</span><span style="color:var(--neon-cyan);">30.8%</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:0.2rem 0;">
+            <span>Questions / research</span><span style="color:var(--neon-cyan);">23.3%</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:0.2rem 0;">
+            <span>Communication / writing</span><span style="color:var(--neon-cyan);">13.5%</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.05); padding:0.2rem 0;">
+            <span>Architecture</span><span style="color:var(--neon-pink);">← most frontier-heavy (18.4%)</span>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="background: rgba(57,255,20,0.04); border-color: rgba(57,255,20,0.2);">
+        <h3 style="color:var(--neon-green); margin-bottom:0.8rem; font-size:1rem;">The Hidden Multiplier</h3>
+        <p style="font-size:1rem; color:var(--chrome-light); line-height:1.7;">
+          User prompts are the tip of the iceberg. When you say "do the analysis", the orchestrator
+          (Claude Code / Hugin) spawns dozens of sub-tasks: write this script, read these files,
+          summarize that diff, run these tests.<br><br>
+          <strong style="color:var(--neon-green);">Those sub-tasks are where ~90% of tokens are spent.</strong>
+          The real question is not "can local models answer my questions" but
+          "can local models handle what Opus delegates?"
+        </p>
+      </div>
+    </div>
+
+    <p style="margin-top: 1.5rem; font-family:'Share Tech Mono',monospace; font-size:0.8rem; color:var(--chrome-dark);">
+      750 prompts classified using Qwen2.5-7B-Instruct via OpenRouter. Schema: category, complexity, min_model_tier (edge/local-small/local-large/frontier). Source: actual Claude Code session transcripts.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================ -->
 <!-- LEADERBOARD -->
 <!-- ============================================ -->
 <section class="leaderboard">
@@ -900,10 +971,14 @@ details.deep-dive .deep-content td {
     <div class="section-label">// Model Quality Rankings</div>
     <h2 class="neon-text">The Leaderboard</h2>
     <p style="color: var(--chrome-light); font-size: 1.15rem; margin-bottom: 0.5rem;">
-      We threw 30 real tasks at 12 open-weight models. Two AI judges scored every answer.
+      We ran 63 tasks across 16+ models via OpenRouter. Two AI judges scored every answer independently.
     </p>
-    <p style="color: var(--chrome-mid); margin-bottom: 2rem; max-width: 600px;">
-      30 tasks. Dual LLM judges (Claude Opus + OpenAI o4-mini). Scale: 0&nbsp;=&nbsp;fail, 1&nbsp;=&nbsp;acceptable, 2&nbsp;=&nbsp;good.
+    <p style="color: var(--chrome-mid); margin-bottom: 0.5rem; max-width: 700px;">
+      63 tasks across 7 categories. Dual LLM judges (Claude Opus 4.5 + OpenAI o4-mini). Scale: 0&nbsp;=&nbsp;fail, 1&nbsp;=&nbsp;acceptable, 2&nbsp;=&nbsp;good.
+      Cloud scores are <strong style="color:var(--neon-yellow)">upper bounds</strong> — local inference may differ (see local benchmark notes below).
+    </p>
+    <p style="color: var(--chrome-mid); margin-bottom: 2rem; max-width: 700px; font-family:'Share Tech Mono',monospace; font-size:0.85rem;">
+      Note: GLM-4.7-Flash scores 1.27 cloud but ~0.81 locally with thinking disabled. Gemma4-26B scores 1.64 cloud, local benchmark in progress.
     </p>
 
     <div class="card" style="overflow-x: auto;">
@@ -924,24 +999,28 @@ details.deep-dive .deep-content td {
           <tr class="rank-1"><td><span class="rank-badge">1</span></td><td>GPT-oss-120B</td><td>1.89</td><td><div class="score-bar"><div class="score-bar-fill" style="width:94.5%;background:linear-gradient(90deg,var(--neon-yellow),var(--neon-cyan))"></div></div></td><td class="fit-yes">Yes*</td><td class="fit-yes">Yes</td><td>5.1B MoE</td><td>102s</td></tr>
           <tr class="rank-2"><td><span class="rank-badge">2</span></td><td>Qwen3-235B-MoE</td><td>1.68</td><td><div class="score-bar"><div class="score-bar-fill" style="width:84%;background:linear-gradient(90deg,var(--chrome-light),var(--chrome-mid))"></div></div></td><td class="fit-no">No</td><td class="fit-yes">Yes</td><td>22B MoE</td><td>159s</td></tr>
           <tr class="rank-2"><td><span class="rank-badge">3</span></td><td>MiniMax-M2.5</td><td>1.68</td><td><div class="score-bar"><div class="score-bar-fill" style="width:84%;background:linear-gradient(90deg,var(--chrome-light),var(--chrome-mid))"></div></div></td><td class="fit-no">No</td><td class="fit-yes">Yes</td><td>15B MoE</td><td>62s</td></tr>
-          <tr><td><span class="rank-badge">4</span></td><td>GLM-4.7-Flash</td><td>1.64</td><td><div class="score-bar"><div class="score-bar-fill" style="width:82%;background:var(--neon-green)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>~3B MoE</td><td>65s</td></tr>
-          <tr><td><span class="rank-badge">5</span></td><td>Qwen3-Coder-Next</td><td>1.62</td><td><div class="score-bar"><div class="score-bar-fill" style="width:81%;background:var(--neon-green)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>3B MoE</td><td>19s</td></tr>
-          <tr><td><span class="rank-badge">5</span></td><td>Qwen3-32B</td><td>1.62</td><td><div class="score-bar"><div class="score-bar-fill" style="width:81%;background:var(--neon-green)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>32B dense</td><td>443s</td></tr>
-          <tr><td><span class="rank-badge">5</span></td><td>Devstral-2</td><td>1.62</td><td><div class="score-bar"><div class="score-bar-fill" style="width:81%;background:var(--neon-green)"></div></div></td><td class="fit-yes">Yes*</td><td class="fit-yes">Yes</td><td>123B dense</td><td>14s</td></tr>
-          <tr><td><span class="rank-badge">8</span></td><td>Qwen3-14B</td><td>1.51</td><td><div class="score-bar"><div class="score-bar-fill" style="width:75.5%;background:rgba(255,255,255,0.4)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>14B dense</td><td>84s</td></tr>
-          <tr><td><span class="rank-badge">9</span></td><td>Nemotron-3-Super</td><td>1.51</td><td><div class="score-bar"><div class="score-bar-fill" style="width:75.5%;background:rgba(255,255,255,0.4)"></div></div></td><td class="fit-yes">Yes*</td><td class="fit-yes">Yes</td><td>12B hybrid</td><td>7.5s</td></tr>
-          <tr><td><span class="rank-badge">10</span></td><td>DS-R1-32B</td><td>1.35</td><td><div class="score-bar"><div class="score-bar-fill" style="width:67.5%;background:rgba(255,255,255,0.25)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>32B dense</td><td>82s</td></tr>
-          <tr><td><span class="rank-badge">11</span></td><td>Llama 3.3-70B</td><td>1.33</td><td><div class="score-bar"><div class="score-bar-fill" style="width:66.5%;background:rgba(255,255,255,0.25)"></div></div></td><td class="fit-no">No</td><td class="fit-yes">Yes</td><td>70B dense</td><td>66s</td></tr>
-          <tr><td><span class="rank-badge">12</span></td><td>Qwen2.5-Coder-32B</td><td>0.33</td><td><div class="score-bar"><div class="score-bar-fill" style="width:16.5%;background:var(--neon-pink)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>32B dense</td><td>5.4s</td></tr>
+          <tr><td><span class="rank-badge">4</span></td><td>GLM-4.7-Flash †</td><td>1.64</td><td><div class="score-bar"><div class="score-bar-fill" style="width:82%;background:var(--neon-green)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>~3B MoE</td><td>65s</td></tr>
+          <tr><td><span class="rank-badge">4</span></td><td>Gemma4-26B ††</td><td>1.64</td><td><div class="score-bar"><div class="score-bar-fill" style="width:82%;background:var(--neon-green)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>4B MoE</td><td>55s</td></tr>
+          <tr><td><span class="rank-badge">6</span></td><td>Qwen3-Coder-Next</td><td>1.62</td><td><div class="score-bar"><div class="score-bar-fill" style="width:81%;background:var(--neon-green)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>3B MoE</td><td>19s</td></tr>
+          <tr><td><span class="rank-badge">6</span></td><td>Qwen3-32B</td><td>1.62</td><td><div class="score-bar"><div class="score-bar-fill" style="width:81%;background:var(--neon-green)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>32B dense</td><td>443s</td></tr>
+          <tr><td><span class="rank-badge">6</span></td><td>Devstral-2</td><td>1.62</td><td><div class="score-bar"><div class="score-bar-fill" style="width:81%;background:var(--neon-green)"></div></div></td><td class="fit-yes">Yes*</td><td class="fit-yes">Yes</td><td>123B dense</td><td>14s</td></tr>
+          <tr><td><span class="rank-badge">9</span></td><td>Qwen3.5-35B-A3B</td><td>1.57</td><td><div class="score-bar"><div class="score-bar-fill" style="width:78.5%;background:var(--neon-green)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>3B MoE</td><td>28s</td></tr>
+          <tr><td><span class="rank-badge">10</span></td><td>Qwen3-14B</td><td>1.51</td><td><div class="score-bar"><div class="score-bar-fill" style="width:75.5%;background:rgba(255,255,255,0.4)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>14B dense</td><td>84s</td></tr>
+          <tr><td><span class="rank-badge">11</span></td><td>Nemotron-3-Super</td><td>1.51</td><td><div class="score-bar"><div class="score-bar-fill" style="width:75.5%;background:rgba(255,255,255,0.4)"></div></div></td><td class="fit-yes">Yes*</td><td class="fit-yes">Yes</td><td>12B hybrid</td><td>7.5s</td></tr>
+          <tr><td><span class="rank-badge">12</span></td><td>DS-R1-32B</td><td>1.35</td><td><div class="score-bar"><div class="score-bar-fill" style="width:67.5%;background:rgba(255,255,255,0.25)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>32B dense</td><td>82s</td></tr>
+          <tr><td><span class="rank-badge">13</span></td><td>Llama 3.3-70B</td><td>1.33</td><td><div class="score-bar"><div class="score-bar-fill" style="width:66.5%;background:rgba(255,255,255,0.25)"></div></div></td><td class="fit-no">No</td><td class="fit-yes">Yes</td><td>70B dense</td><td>66s</td></tr>
+          <tr><td><span class="rank-badge">14</span></td><td>Qwen2.5-Coder-32B</td><td>0.33</td><td><div class="score-bar"><div class="score-bar-fill" style="width:16.5%;background:var(--neon-pink)"></div></div></td><td class="fit-yes">Yes</td><td class="fit-yes">Yes</td><td>32B dense</td><td>5.4s</td></tr>
         </tbody>
       </table>
     </div>
 
-    <p style="margin-top:1rem; font-family:'Share Tech Mono',monospace; font-size:0.8rem; color:var(--chrome-mid);">* Fits as sole model only. No room for a second model alongside it after macOS overhead (~20 GB).</p>
+    <p style="margin-top:1rem; font-family:'Share Tech Mono',monospace; font-size:0.8rem; color:var(--chrome-mid);">* Fits as sole model only. No room for a second model alongside it after macOS overhead (~20 GB).<br>
+† GLM-4.7-Flash cloud score is with thinking enabled (~2,886 tokens avg). Local score with thinking disabled (required to avoid 10-minute TTFT on M4 Air): ~0.81. Thinking-enabled locally on Mac Studio M5 would score ~1.22 est.<br>
+†† Gemma4-26B cloud (4B active MoE). Local benchmark in progress on M4 Air. Gemma4-E2B (2B) local benchmark complete.</p>
 
     <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
       <span class="method-badge">Dual LLM Judge<span class="tooltip">Every response judged independently by Claude Opus 4.5 and OpenAI o4-mini. Two model families reduces systematic bias. Disagreements >1.5 trigger manual review.</span></span>
-      <span class="method-badge">30 Tasks<span class="tooltip">15 generic coding tasks (algorithms, refactoring, debugging, architecture), 5 non-coding (summarization, extraction, planning), 10 real-world tasks mined from 6,567 actual Claude Code prompts.</span></span>
+      <span class="method-badge">63 Tasks<span class="tooltip">7 categories: simple-coding, refactoring, architecture, debugging, multi-file, reasoning, non-coding. Includes Grimnir-specific tasks (librarian, delegated), and real-world tasks mined from actual Claude Code sessions. Compound tasks (ct-001 to ct-007) run via the orchestration benchmark separately.</span></span>
       <span class="method-badge">Coding + Non-Coding<span class="tooltip">Not just HumanEval. Tasks include Swedish email extraction, MCP tool generation, Fortnox API refactoring, project status reports, and slide content generation.</span></span>
       <span class="method-badge">Real-World Prompts<span class="tooltip">10 tasks derived from analyzing the user's actual prompt history: commit messages (8% of prompts), debugging (5%), documentation (8%), status reports (7%), Swedish tasks (5%).</span></span>
       <span class="method-badge">100% Judge Agreement<span class="tooltip">Opus and o4-mini agreed on the score for every single evaluation in this batch. This is unusually high &mdash; likely because the 3-point scale (fail/acceptable/good) is coarser than typical 1-5 scales.</span></span>
@@ -1298,42 +1377,132 @@ details.deep-dive .deep-content td {
     <div class="section-label">// Workload Distribution</div>
     <h2 class="neon-text">What Moves Local?</h2>
     <p style="color: var(--chrome-light); font-size: 1.15rem; margin-bottom: 0.5rem;">
-      Half your work doesn't need the cloud. Refactoring, debugging, and docs score perfect locally.
+      Nearly everything. 97.3% of real prompts can run on local models. Only architecture tasks skew frontier-heavy.
     </p>
     <p style="color: var(--chrome-mid); margin-bottom: 1rem;">
-      Analysis of 6,567 actual Claude Code prompts. ~50% of work can run locally.
+      Measured from 750 real Claude Code session prompts across 56 projects. Not estimates &mdash; actual classification.
     </p>
 
-    <div class="pct-bar">
-      <div class="pct-fill local" style="width: 50%;">LOCAL ~50%</div>
-      <div class="pct-fill cloud" style="width: 50%;">CLOUD (OPUS) ~50%</div>
+    <div class="pct-bar" style="height:32px;">
+      <div class="pct-fill local" style="width: 97.3%; font-size:0.85rem; font-weight:700;">LOCAL 97.3%</div>
+    </div>
+    <div style="display:flex; justify-content:flex-end; margin-top:0.3rem;">
+      <span style="font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--neon-pink);">FRONTIER 2.7% ▶</span>
     </div>
 
-    <div class="offload-grid">
+    <div class="pct-bar" style="height:24px; margin-top:1rem;">
+      <div class="pct-fill local" style="width: 78%; font-size:0.75rem;">EDGE / LOCAL-SMALL 78%</div>
+    </div>
+    <p style="font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--chrome-mid); margin-top:0.3rem;">78% can run on tiny models (Gemma4-E2B, GLM-4.7-Flash) &mdash; not just "local", but <em>fast local</em>.</p>
+
+    <div class="offload-grid" style="margin-top:2rem;">
       <div>
-        <h3 style="color:var(--neon-green); margin-bottom:1rem;">Runs Locally</h3>
+        <h3 style="color:var(--neon-green); margin-bottom:1rem;">Runs Locally (97.3%)</h3>
         <ul class="offload-list offload-local">
-          <li><span>Refactoring</span><span class="score">2.0</span></li>
-          <li><span>Debugging</span><span class="score">2.0</span></li>
-          <li><span>Documentation</span><span class="score">2.0</span></li>
-          <li><span>Commit messages</span><span class="score">2.0</span></li>
-          <li><span>Status reports</span><span class="score">2.0</span></li>
-          <li><span>Simple coding</span><span class="score">1.5</span></li>
-          <li><span>Swedish text</span><span class="score">1.5</span></li>
-          <li><span>Non-coding assistant</span><span class="score">1.7</span></li>
+          <li><span>Coding (30.8% of prompts)</span><span class="score">✓</span></li>
+          <li><span>Questions / research (23.3%)</span><span class="score">✓</span></li>
+          <li><span>Communication / writing (13.5%)</span><span class="score">✓</span></li>
+          <li><span>Refactoring, debugging, docs</span><span class="score">2.0</span></li>
+          <li><span>Commit messages, status reports</span><span class="score">2.0</span></li>
+          <li><span>Simple coding, Swedish text</span><span class="score">1.5–1.7</span></li>
         </ul>
       </div>
       <div>
-        <h3 style="color:var(--neon-pink); margin-bottom:1rem;">Stays on Cloud</h3>
+        <h3 style="color:var(--neon-pink); margin-bottom:1rem;">Stays Cloud (2.7%)</h3>
         <ul class="offload-list offload-cloud">
-          <li><span>Complex architecture</span><span class="score">1.0</span></li>
-          <li><span>Research (web search)</span><span class="score">N/A</span></li>
-          <li><span>Multi-turn creative</span><span class="score">varies</span></li>
-          <li><span>Long context (&gt;128K)</span><span class="score">N/A</span></li>
-          <li><span>Strategic planning</span><span class="score">varies</span></li>
+          <li><span>Complex architecture (18.4% frontier)</span><span class="score">↑cloud</span></li>
+          <li><span>Multi-step strategic planning</span><span class="score">varies</span></li>
+          <li><span>Research requiring web search</span><span class="score">N/A</span></li>
+          <li><span>Long context (&gt;128K tokens)</span><span class="score">N/A</span></li>
         </ul>
+        <p style="font-size:0.9rem; color:var(--chrome-mid); margin-top:1rem; line-height:1.6;">
+          Architecture is the most frontier-heavy category at 18.4% needing Claude/GPT-4. Everything else is overwhelmingly local.
+        </p>
       </div>
     </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============================================ -->
+<!-- ORCHESTRATION BENCHMARK -->
+<!-- ============================================ -->
+<section>
+  <div class="container">
+    <div class="section-label">// The Real Test: Can Local Models Do Sonnet's Job?</div>
+    <h2 class="neon-text">Orchestration Benchmark</h2>
+    <p style="color: var(--chrome-light); font-size: 1.15rem; margin-bottom: 0.5rem;">
+      We built a compound-task benchmark to answer the real question: when Opus delegates sub-tasks, can local models replace Sonnet?
+    </p>
+    <p style="color: var(--chrome-mid); margin-bottom: 2rem;">
+      7 compound tasks &times; 3+ strategies. Each task runs 2–4 sub-tasks then synthesizes a final answer. Judged on the final output only.
+    </p>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+      <div class="card" style="border-color: rgba(0,240,255,0.3);">
+        <div style="font-family:'Orbitron',monospace; font-size:0.7rem; letter-spacing:0.15em; color:var(--neon-cyan); margin-bottom:0.5rem;">STRATEGY A — BASELINE</div>
+        <div style="font-family:'Orbitron',monospace; font-size:1.1rem; color:var(--chrome-light); margin-bottom:0.8rem;">Cloud-Only</div>
+        <div style="font-family:'Share Tech Mono',monospace; font-size:0.9rem; color:var(--chrome-mid); line-height:1.8;">
+          Opus orchestrates Sonnet<br>
+          Score: <span style="color:var(--neon-cyan); font-size:1.4rem; font-weight:700;">1.88 / 2.0</span><br>
+          Cost: <span style="color:var(--neon-yellow);">$0.21/task</span><br>
+          <span class="status-badge status-done" style="margin-top:0.3rem;">Baseline complete</span>
+        </div>
+      </div>
+
+      <div class="card" style="border-color: rgba(57,255,20,0.25); background: rgba(57,255,20,0.03);">
+        <div style="font-family:'Orbitron',monospace; font-size:0.7rem; letter-spacing:0.15em; color:var(--neon-green); margin-bottom:0.5rem;">STRATEGY B — HYPOTHESIS</div>
+        <div style="font-family:'Orbitron',monospace; font-size:1.1rem; color:var(--chrome-light); margin-bottom:0.8rem;">Hybrid</div>
+        <div style="font-family:'Share Tech Mono',monospace; font-size:0.9rem; color:var(--chrome-mid); line-height:1.8;">
+          Opus orchestrates local Gemma4-26B<br>
+          Score: <span style="color:var(--chrome-dark);">TBD — runs next</span><br>
+          Cost: <span style="color:var(--neon-green);">~$0.03/task</span> (orchestrator only)<br>
+          <span class="status-badge status-pending">Pending — Ollama required</span>
+        </div>
+      </div>
+
+      <div class="card" style="border-color: rgba(255,230,0,0.2);">
+        <div style="font-family:'Orbitron',monospace; font-size:0.7rem; letter-spacing:0.15em; color:var(--neon-yellow); margin-bottom:0.5rem;">STRATEGY C — STRETCH GOAL</div>
+        <div style="font-family:'Orbitron',monospace; font-size:1.1rem; color:var(--chrome-light); margin-bottom:0.8rem;">Fully Local</div>
+        <div style="font-family:'Share Tech Mono',monospace; font-size:0.9rem; color:var(--chrome-mid); line-height:1.8;">
+          Gemma4-26B orchestrates &amp; executes<br>
+          Score: <span style="color:var(--chrome-dark);">TBD</span><br>
+          Cost: <span style="color:var(--neon-green);">$0.00/task</span><br>
+          <span class="status-badge status-planned">Planned</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 style="color:var(--neon-cyan); margin-bottom:1rem;">7 Compound Tasks</h3>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:0.8rem; font-family:'Share Tech Mono',monospace; font-size:0.85rem;">
+        <div>ct-001 &mdash; Feature + Tests + Review</div>
+        <div>ct-002 &mdash; Research &amp; Recommend</div>
+        <div>ct-003 &mdash; Debug + Fix + Regression</div>
+        <div>ct-004 &mdash; PR Review + Changelog</div>
+        <div>ct-005 &mdash; Architecture Assessment</div>
+        <div>ct-006 &mdash; Code Port + Validation</div>
+        <div>ct-007 &mdash; Daily Briefing</div>
+      </div>
+      <p style="margin-top:1rem; color:var(--chrome-mid); font-size:0.95rem; line-height:1.7;">
+        Each task decomposes into 2–4 sub-tasks executed by the <em>execution model</em> (Sonnet or local), with outputs injected into the next prompt. A final synthesis call by the <em>orchestrator</em> (Opus or local) assembles the deliverable. Only the final output is judged &mdash; same pipeline, same rubric.
+      </p>
+    </div>
+
+    <div class="card" style="margin-top:1.5rem; background: rgba(0,240,255,0.03); border-color:rgba(0,240,255,0.2);">
+      <h3 style="color:var(--neon-cyan); margin-bottom:0.5rem; font-size:1rem;">Decision Criteria</h3>
+      <p style="color:var(--chrome-mid); font-size:0.95rem; line-height:1.7;">
+        Hardware is justified if hybrid (Strategy B) scores <strong style="color:var(--neon-cyan);">within 0.3 points</strong> of cloud-only on the 0–2 scale,
+        while saving <strong style="color:var(--neon-green);">&gt;50% cost per task</strong>, across at least 5/7 tasks.
+        Cloud-only baseline: <strong style="color:var(--neon-cyan);">1.88/2.0</strong>. Threshold to beat: <strong>1.58</strong>.
+      </p>
+    </div>
+
+    <p style="margin-top:1.5rem; font-family:'Share Tech Mono',monospace; font-size:0.8rem; color:var(--chrome-dark);">
+      Source: <a href="https://github.com/Magnus-Gille/home-server-inference-evaluation/tree/main/src/orchestrator" style="color:var(--neon-cyan);">src/orchestrator/</a>
+      &mdash; strategies.ts, executor.ts, index.ts &mdash; runs via <code>tsx src/orchestrator/index.ts --batch orch-v1</code>
+    </p>
   </div>
 </section>
 
@@ -1353,22 +1522,25 @@ details.deep-dive .deep-content td {
     <div class="faq-item">
       <div class="faq-q">What is the current status of this evaluation?</div>
       <div class="faq-a">
-        <span class="status-badge status-done">Done</span> Phase A &mdash; Cloud quality screening (12 models, 30 tasks, 758 judge evaluations)<br>
-        <span class="status-badge status-done">Done</span> Three-tier testing (Cloud / MacBook Air M4 / Raspberry Pi 5)<br>
+        <span class="status-badge status-done">Done</span> Cloud quality screening &mdash; 16 models &times; 63 tasks, dual-judge, multiple batches<br>
+        <span class="status-badge status-done">Done</span> Local benchmarks &mdash; Gemma4-E2B (63 tasks), GLM-4.7-Flash (63 tasks), Gemma4-26B on M4 Air<br>
+        <span class="status-badge status-done">Done</span> Prompt mining &mdash; 750 real prompts classified, 97.3% offloadable finding<br>
         <span class="status-badge status-done">Done</span> Cost analysis and hardware comparison<br>
-        <span class="status-badge status-done">Done</span> Real-world task mining from 6,567 actual prompts<br>
-        <span class="status-badge status-pending">Pending</span> Phase B &mdash; Validate GPT-oss-120B running locally on real Apple Silicon<br>
-        <span class="status-badge status-pending">Pending</span> Phase B &mdash; Concurrent user load testing (1/3/5 simultaneous sessions)<br>
-        <span class="status-badge status-pending">Pending</span> Phase B &mdash; Q4 vs Q8 quantization quality comparison on real hardware<br>
-        <span class="status-badge status-planned">Planned</span> Agentic workflow testing (aider + Ollama for multi-turn coding)<br>
-        <span class="status-badge status-planned">Planned</span> M5 Max evaluation (when Apple announces, expected summer 2026)
+        <span class="status-badge status-done">Done</span> Orchestration benchmark framework built (7 compound tasks, 3 strategies)<br>
+        <span class="status-badge status-done">Done</span> Cloud-only baseline: 1.88/2.0 avg score, $0.21/task<br>
+        <span class="status-badge status-pending">Running</span> Hybrid strategy (Opus&rarr;local Gemma4-26B) &mdash; next run when Ollama available<br>
+        <span class="status-badge status-pending">Pending</span> Fully-local strategy (Gemma4-26B orchestrates and executes)<br>
+        <span class="status-badge status-pending">Pending</span> Concurrent user load testing (1/3/5 simultaneous sessions)<br>
+        <span class="status-badge status-pending">Pending</span> Q4 vs Q8 quantization quality comparison<br>
+        <span class="status-badge status-planned">Planned</span> Alternative harness evaluation (aider + Ollama for agentic tasks on Pi)<br>
+        <span class="status-badge status-planned">Planned</span> Mac Studio M5 hardware purchase (summer 2026, pending orchestration results)
       </div>
     </div>
 
     <div class="faq-item">
       <div class="faq-q">How reliable are these scores?</div>
       <div class="faq-a">
-        The scores are <strong>directional, not definitive</strong>. 30 tasks is enough to rank models confidently but not enough for precise per-category claims (some categories have only 2-4 tasks). The dual-judge approach (Opus + o4-mini) with 100% agreement adds confidence. Cloud scores are an <strong>upper bound</strong> &mdash; local quantized inference may score slightly lower, though our Air test showed minimal degradation for dense models.
+        The scores are <strong>directional, not definitive</strong>. 63 tasks gives solid category-level confidence. The dual-judge approach (Opus + o4-mini) with 100% agreement on most batches adds reliability. Cloud scores are an <strong>upper bound</strong> &mdash; local quantized inference may score lower. The GLM case is the sharpest example: cloud 1.64 (thinking enabled) vs local ~0.81 (thinking disabled, required to avoid 10-min TTFT). Dense models degrade less: Qwen3-14B local was 1.48 vs 1.55 cloud.
       </div>
     </div>
 
@@ -1407,9 +1579,10 @@ details.deep-dive .deep-content td {
     <div class="faq-item">
       <div class="faq-q">What&rsquo;s the plan ahead?</div>
       <div class="faq-a">
-        <strong>Short term (April 2026):</strong> Rent a Mac Studio for a weekend, validate GPT-oss-120B locally, run concurrent load tests, measure real tok/s and TTFT.<br>
-        <strong>Medium term (Summer 2026):</strong> Wait for M5 Max announcement. If bandwidth improves to 614+ GB/s, that&rsquo;s 12% faster inference for free. Buy the hardware, deploy for the co-op.<br>
-        <strong>Long term:</strong> Build the hackathon booth. Host vibe-coding workshops. Run a local inference service for 3-5 people at 300 SEK/person/month.
+        <strong>Right now (April 2026):</strong> Run orchestration hybrid strategies (Opus&rarr;Gemma4-26B, Opus&rarr;Qwen3.5) to see if local models can replace Sonnet in sub-task delegation. This is the critical gate for the hardware decision.<br>
+        <strong>Short term:</strong> If hybrid scores within 0.3 of cloud-only (threshold: 1.58/2.0), the case for hardware is strong. Also testing aider + Ollama as an alternative harness for Pi.<br>
+        <strong>Medium term (Summer 2026):</strong> Wait for M5 Max announcement. Buy the hardware if orchestration results justify it. Deploy GPT-oss-120B + Gemma4-26B as the co-op stack.<br>
+        <strong>Long term:</strong> Build the hackathon booth. Run Hugin (local orchestrator) as the agent substrate. 300 SEK/person/month for unlimited local inference.
       </div>
     </div>
   </div>
@@ -1488,28 +1661,27 @@ Include any code snippets or context the model needs.`,
 
       <!-- Phase 1 -->
       <div style="position:relative; margin-bottom: 3rem;">
-        <div style="position:absolute; left: -2.6rem; top: 0.2rem; width: 1.2rem; height: 1.2rem; border: 2px solid var(--neon-cyan); background: var(--bg-dark);"></div>
+        <div style="position:absolute; left: -2.6rem; top: 0.2rem; width: 1.2rem; height: 1.2rem; border: 2px solid var(--neon-cyan); background: var(--neon-cyan);"></div>
         <div style="font-family:'Orbitron',monospace; font-size:0.75rem; letter-spacing:0.15em; color:var(--neon-cyan);">MARCH&ndash;APRIL 2026</div>
-        <h3 style="font-size:1.4rem; margin: 0.3rem 0;">Phase A: Evaluate &amp; Decide</h3>
+        <h3 style="font-size:1.4rem; margin: 0.3rem 0;">Phase A: Evaluate &amp; Screen</h3>
         <p style="color:var(--chrome-mid);">
-          <span class="status-badge status-done">Done</span> Run 385 inference tests across 12 models and 3 hardware tiers.
-          Share results. Collect feedback from co-op candidates. Accept community task submissions via PR.
-          Validate GPT-oss-120B running locally on rented Mac Studio.
+          <span class="status-badge status-done">Done</span> 16 models &times; 63 tasks via OpenRouter. Local benchmarks on M4 Air (Gemma4-E2B, GLM-4.7-Flash, Gemma4-26B).
+          750 real prompts classified: <strong style="color:var(--neon-green);">97.3% offloadable</strong>.
+          Orchestration benchmark built and cloud baseline established: <strong style="color:var(--neon-cyan);">1.88/2.0, $0.21/task</strong>.
         </p>
       </div>
 
       <!-- Phase 2 -->
       <div style="position:relative; margin-bottom: 3rem;">
-        <div style="position:absolute; left: -2.6rem; top: 0.2rem; width: 1.2rem; height: 1.2rem; border: 2px solid var(--neon-pink); background: var(--bg-dark);"></div>
-        <div style="font-family:'Orbitron',monospace; font-size:0.75rem; letter-spacing:0.15em; color:var(--neon-pink);">MAY&ndash;JUNE 2026</div>
-        <h3 style="font-size:1.4rem; margin: 0.3rem 0;">Phase B: Validate &amp; Prepare</h3>
+        <div style="position:absolute; left: -2.6rem; top: 0.2rem; width: 1.2rem; height: 1.2rem; border: 2px solid var(--neon-pink); background: var(--bg-dark); box-shadow: 0 0 8px var(--neon-pink);"></div>
+        <div style="font-family:'Orbitron',monospace; font-size:0.75rem; letter-spacing:0.15em; color:var(--neon-pink);">APRIL&ndash;MAY 2026</div>
+        <h3 style="font-size:1.4rem; margin: 0.3rem 0;">Phase B: Orchestration &amp; Decision</h3>
         <p style="color:var(--chrome-mid);">
-          <span class="status-badge status-pending">Pending</span>
-          Concurrent user load testing on real hardware (1/3/5 sessions).
-          Agentic workflow testing with aider + Ollama.
-          Quantization quality comparison (Q4 vs Q8).
-          Finalize co-op group and cost-sharing agreement.
-          Monitor M5 Max announcement from Apple.
+          <span class="status-badge status-pending">In Progress</span>
+          Run hybrid orchestration strategies (Opus&rarr;local Gemma4-26B, Opus&rarr;Qwen3.5).
+          If hybrid scores &ge;1.58/2.0: hardware justified.
+          Also: aider + Ollama agentic testing on Pi, quantization comparison (Q4 vs Q8), concurrent load tests.
+          Finalize co-op group.
         </p>
       </div>
 
@@ -1558,7 +1730,7 @@ Include any code snippets or context the model needs.`,
   <p>
     Built with
     <a href="https://github.com/Magnus-Gille/home-server-inference-evaluation">open-source evaluation framework</a>
-    &middot; Data collected 2026-03-29/30
+    &middot; Data collected 2026-03-29 &ndash; 2026-04-06
     &middot; Judged by Claude Opus 4.5 + OpenAI o4-mini
   </p>
   <p style="margin-top:0.5rem;">
