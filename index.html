@@ -1180,6 +1180,9 @@ details.deep-dive .deep-content td {
     </p>
 
     <h3 style="color:var(--neon-cyan); margin-bottom:0.8rem; font-size:1rem;">Scenario A — vs API (pay-per-token)</h3>
+    <p style="color:var(--chrome-mid); font-size:0.85rem; margin-bottom:1rem;">
+      &#9888; <strong>Reality check:</strong> Most heavy users are on Claude MAX ($200/mo flat), not pay-per-token. Our billing audit showed $20/mo on OpenRouter &mdash; all benchmarking, zero production. Scenario B (subscription) is the relevant comparison for most users.
+    </p>
     <div class="cost-grid" style="margin-bottom:2rem;">
       <div class="cost-card" style="position:relative;">
         <div class="cost-label">Light use (~10M tok/mo)</div>
@@ -1266,14 +1269,15 @@ details.deep-dive .deep-content td {
         <p>Total throughput is fixed by bandwidth &mdash; more concurrent users slice the same pie. <strong>The hardware cannot replace all API volume at high usage.</strong> It complements cloud by handling sub-tasks cheaply.</p>
 
         <h4>What the hardware actually replaces (the real break-even)</h4>
-        <p>Break-even depends on <em>which API calls</em> go local. The orchestration benchmark proved local Gemma4-26B replaces Sonnet-quality sub-tasks (1.98/2.0 hybrid vs 1.88/2.0 cloud). So local tokens displace Sonnet pricing ($3/$15 per M tokens = ~120 SEK/M tokens).</p>
+        <p><strong>Billing reality:</strong> Real usage is 2.8B tokens/month via Claude MAX subscription, of which 95.4% are cache reads. Only ~13M output tokens/month are actually generated &mdash; local inference has no cache equivalent, so it addresses only the output slice.</p>
+        <p>For pay-per-token users, break-even depends on <em>which API calls</em> go local. The orchestration benchmark proved local Gemma4-26B replaces Sonnet-quality sub-tasks (1.98/2.0 hybrid vs 1.88/2.0 cloud). So local tokens displace Sonnet pricing ($3/$15 per M tokens = ~120 SEK/M tokens).</p>
         <table>
           <tr><th>Local tokens replace&hellip;</th><th>API price (SEK/M tok)</th><th>Tokens/month to break even</th><th>Generation time/day</th></tr>
           <tr><td><strong>Sonnet sub-tasks</strong></td><td>~120 SEK/M</td><td><strong>~10M</strong></td><td><strong>~1 hour</strong></td></tr>
           <tr><td>GPT-oss-120B</td><td>~10 SEK/M</td><td>~124M</td><td>~16 hours</td></tr>
           <tr><td>Gemma4-26B cloud</td><td>~3.4 SEK/M</td><td>~361M</td><td>Exceeds 24/7 capacity</td></tr>
         </table>
-        <p><strong>Key insight:</strong> Displacing Sonnet sub-tasks, the hardware only needs ~1 hour of active generation per day to pay for itself. The throughput ceiling (233M/month) is irrelevant at this price tier &mdash; you&rsquo;d exhaust your Sonnet budget long before you exhaust the hardware.</p>
+        <p><strong>Key insight:</strong> For subscription users (most heavy users), the API displacement table above is irrelevant. The real case is <strong>subscription displacement</strong>: hardware lets you downgrade from MAX ($200/mo) to Pro ($20/mo), saving $180/mo per user. See Scenario B above.</p>
 
         <h4>Subscription comparison (MAX &rarr; Pro + local)</h4>
         <p>With hardware handling sub-tasks, users can downgrade from MAX to Pro. The saving is fixed &mdash; doesn&rsquo;t depend on token volume, only on quality being good enough (it is: 1.83&ndash;1.98/2.0).</p>
@@ -1616,7 +1620,7 @@ details.deep-dive .deep-content td {
     <div class="faq-item">
       <div class="faq-q">Why not just use existing benchmarks (HumanEval, SWE-Bench)?</div>
       <div class="faq-a">
-        Existing benchmarks test generic capabilities. This evaluation tests <strong>your actual use cases</strong> &mdash; Swedish email extraction, MCP tool generation, Fortnox invoice refactoring, project status summaries. The question isn&rsquo;t "which model is smartest?" but "which model can do <em>my work</em> well enough that I stop paying for API tokens?"
+        Existing benchmarks test generic capabilities. This evaluation tests <strong>your actual use cases</strong> &mdash; Swedish email extraction, MCP tool generation, Fortnox invoice refactoring, project status summaries. The question isn&rsquo;t "which model is smartest?" but "which model can do <em>my work</em> well enough that I can downgrade my cloud subscription?"
       </div>
     </div>
 
